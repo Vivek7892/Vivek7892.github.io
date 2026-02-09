@@ -284,13 +284,11 @@ window.addEventListener('load', () => {
 // Load Profile Image from Admin Panel
 function loadProfileImage() {
     const imageData = localStorage.getItem('profileImageData');
-    const heroProfilePic = document.getElementById('heroProfilePic');
+    const profileImg = document.querySelector('#heroProfilePic img');
     
-    if (imageData && heroProfilePic) {
-        const img = document.createElement('img');
-        img.src = imageData;
-        img.alt = 'Vivek V Profile Picture';
-        heroProfilePic.insertBefore(img, heroProfilePic.firstChild);
+    // Only replace if admin uploaded a custom image
+    if (imageData && profileImg) {
+        profileImg.src = imageData;
     }
     
     // Load Resume Link
@@ -300,7 +298,7 @@ function loadProfileImage() {
     
     if (resumeData && downloadBtn) {
         downloadBtn.href = resumeData;
-        downloadBtn.download = resumeFileName || 'Vivek_V_Resume.pdf';
+        downloadBtn.download = resumeFileName || 'VIVEK_V.pdf';
     }
 }
 
