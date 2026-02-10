@@ -297,14 +297,7 @@ function loadProfileImage() {
     }
 }
 
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const heroBlob = document.querySelector('.hero-blob');
-    if (heroBlob) {
-        heroBlob.style.transform = `translateY(${scrolled * 0.5}px)`;
-    }
-});
+
 
 // Add hover effect to project cards
 document.querySelectorAll('.project-card').forEach(card => {
@@ -344,3 +337,93 @@ if (circles.length === 0 && window.innerWidth > 768) {
 // Console message
 console.log('%c👋 Hello! Thanks for checking out my portfolio!', 'color: #667eea; font-size: 20px; font-weight: bold;');
 console.log('%cInterested in the code? Check out the GitHub repo!', 'color: #764ba2; font-size: 14px;');
+
+
+// ============================================
+// NEW FEATURES JAVASCRIPT
+// ============================================
+
+// GITHUB USERNAME CONFIGURATION
+const GITHUB_USERNAME = 'Vivek7892'; // Change this to update everywhere
+
+// Initialize new features on page load
+document.addEventListener('DOMContentLoaded', () => {
+    fetchGitHubRepos();
+    initVisitorCounter();
+    initJourneyAnimation();
+    initNetlifyForm();
+});
+
+// GITHUB REPOS FETCHER
+async function fetchGitHubRepos() {
+    try {
+        const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`);
+        const repos = await response.json();
+        displayRepos(repos);
+    } catch (error) {
+        console.error('Error fetching repos:', error);
+        const reposList = document.getElementById('reposList');
+        if (reposList) {
+            reposList.innerHTML = '<p>Unable to load repositories</p>';
+        }
+    }
+}
+
+function displayRepos(repos) {
+    const reposList = document.getElementById('reposList');
+    if (!reposList) return;
+    
+    reposList.innerHTML = repos.map(repo => `
+        <div class="repo-card">
+            <h3>${repo.name}</h3>
+            <p>${repo.description || 'No description available'}</p>
+            <a href="${repo.html_url}" target="_blank">View Repository →</a>
+        </div>
+    `).join('');
+}
+
+// VISITOR COUNTER
+function initVisitorCounter() {
+    const counterElement = document.getElementById('visitorCount');
+    if (!counterElement) return;
+    
+    let count = localStorage.getItem('visitorCount') || 0;
+    count = parseInt(count) + 1;
+    localStorage.setItem('visitorCount', count);
+    counterElement.textContent = count;
+}
+
+// JOURNEY TIMELINE ANIMATION
+function initJourneyAnimation() {
+    const journeyItems = document.querySelectorAll('.journey-item');
+    if (journeyItems.length === 0) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    journeyItems.forEach(item => observer.observe(item));
+}
+
+// NETLIFY FORM SUCCESS MESSAGE
+function initNetlifyForm() {
+    const form = document.querySelector('form[name="contact"]');
+    if (!form) return;
+    
+    form.addEventListener('submit', (e) => {
+        setTimeout(() => {
+            const successMsg = document.getElementById('form-success');
+            if (successMsg) {
+                successMsg.style.display = 'block';
+                form.reset();
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 5000);
+            }
+        }, 1000);
+    });
+}
