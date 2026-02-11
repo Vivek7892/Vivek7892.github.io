@@ -2,6 +2,26 @@
 const themeToggle = document.getElementById('themeToggle');
 const html = document.documentElement;
 
+// Live Clock Function
+function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    
+    const timeElement = document.getElementById('liveTime');
+    const dateElement = document.getElementById('liveDate');
+    
+    if (timeElement) timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+    if (dateElement) dateElement.textContent = `${day}/${month}/${year}`;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
 // Check for saved theme preference or default to 'light'
 const currentTheme = localStorage.getItem('theme') || 'light';
 html.setAttribute('data-theme', currentTheme);
@@ -466,3 +486,41 @@ Vivek V - Portfolio
         alert('Links copied! Share them with others.');
     });
 }
+
+
+// Bottom Navigation
+const bottomNav = document.getElementById('bottomNav');
+let lastScrollY = window.pageYOffset;
+
+window.addEventListener('scroll', () => {
+    const currentScrollY = window.pageYOffset;
+    
+    if (currentScrollY > 300) {
+        bottomNav.classList.add('show');
+    } else {
+        bottomNav.classList.remove('show');
+    }
+    
+    lastScrollY = currentScrollY;
+});
+
+// Active state for bottom nav
+const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= (sectionTop - 100)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    bottomNavItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('href') === `#${current}`) {
+            item.classList.add('active');
+        }
+    });
+});
