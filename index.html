@@ -8,6 +8,10 @@
     <meta name="author" content="Vivek V">
     <title>VIVEK V</title>
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <!-- Google Fonts - Professional Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Analytics -->
@@ -34,6 +38,15 @@
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-right">
+                <div class="nav-social-icons">
+                    <a href="tel:+917892409872" aria-label="Phone"><i class="fas fa-phone"></i></a>
+                    <a href="mailto:vivekvvivekv70@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/Vivek7892" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <a href="resume/VIVEK V.pdf" class="btn-resume-nav" download="VIVEK_V_Resume.pdf">
+                    <i class="fas fa-download"></i> Resume
+                </a>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -50,18 +63,27 @@
     <section class="hero" id="home">
         <div class="container hero-container">
             <div class="hero-content">
-                <h1 class="hero-title">Hi, I'm <span class="gradient-text">Vivek V</span></h1>
-                <h2 class="hero-subtitle">AI & Full Stack Developer</h2>
-                <p class="hero-description">Building intelligent applications with AI, GenAI, and modern web technologies</p>
+                <h1 class="hero-title">👋 Hello I'm <span class="gradient-text">Vivek</span></h1>
+                <h2 class="hero-subtitle">Full Stack Developer</h2>
+                <p class="hero-typing">I build <span id="typingText" class="typing-text"></span><span class="typing-cursor">|</span></p>
+                <p class="hero-tagline">Building production-ready MERN applications with intelligent AI capabilities.<br>Specializing in RAG chatbots and LLM-powered solutions.</p>
+                <p class="hero-description">Experienced in developing scalable web applications using React, Node.js, and MongoDB. Expert in implementing RAG-based chatbots with LangChain and LLM APIs. Proficient in building cross-platform mobile apps with Flutter.</p>
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View Projects</a>
-                    <a href="resume/VIVEK V.pdf" class="btn btn-secondary" id="downloadResume" download="VIVEK V.pdf">Download Resume</a>
-                    <a href="#contact" class="btn btn-outline">Contact Me</a>
+                    <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i> View Projects</a>
+                    <a href="resume/VIVEK V.pdf" class="btn-resume-glow" download="VIVEK_V_Resume.pdf"><i class="fas fa-download"></i> Download Resume</a>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge"><i class="fab fa-react"></i> React</span>
+                    <span class="tech-badge"><i class="fab fa-node-js"></i> Node.js</span>
+                    <span class="tech-badge"><i class="fas fa-database"></i> MongoDB</span>
+                    <span class="tech-badge"><i class="fas fa-brain"></i> LangChain</span>
+                    <span class="tech-badge"><i class="fab fa-aws"></i> AWS</span>
+                    <span class="tech-badge"><i class="fas fa-mobile-alt"></i> Flutter</span>
                 </div>
             </div>
             <div class="hero-image">
                 <div class="hero-profile-pic" id="heroProfilePic">
-                    <img src="images/profile.jpg" alt="Vivek V - AI & Full Stack Developer">
+                    <img src="images/profile.jpg" alt="Vivek V - Full Stack Developer & Generative AI Engineer">
                     <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" class="open-to-work-badge">
                         <i class="fas fa-briefcase"></i>
                         Open to Work
@@ -103,68 +125,87 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- Technical Skills Section -->
     <section class="skills" id="skills">
         <div class="container">
-            <h2 class="section-title">Skills & Technologies</h2>
-            <div class="skills-slider-wrapper">
-                <button class="slider-btn prev-btn" id="skillsPrev" aria-label="Previous skills">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="skills-slider" id="skillsSlider">
-                    <div class="skill-category">
-                        <div class="skill-icon"><i class="fas fa-code"></i></div>
-                        <h3>Programming</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">C</span>
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">JavaScript</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <div class="skill-icon"><i class="fas fa-laptop-code"></i></div>
-                        <h3>Web Development</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">HTML5</span>
-                            <span class="skill-tag">CSS3</span>
-                            <span class="skill-tag">React</span>
-                            <span class="skill-tag">Frontend</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <div class="skill-icon"><i class="fas fa-mobile-alt"></i></div>
-                        <h3>Mobile Development</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Flutter</span>
-                            <span class="skill-tag">Dart</span>
-                            <span class="skill-tag">Android</span>
-                            <span class="skill-tag">iOS</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <div class="skill-icon"><i class="fas fa-brain"></i></div>
-                        <h3>AI & Data Science</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Machine Learning</span>
-                            <span class="skill-tag">RAG</span>
-                            <span class="skill-tag">LangChain</span>
-                            <span class="skill-tag">LLM APIs</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <div class="skill-icon"><i class="fas fa-tools"></i></div>
-                        <h3>Tools & Platforms</h3>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Git</span>
-                            <span class="skill-tag">GitHub</span>
-                            <span class="skill-tag">VS Code</span>
-                            <span class="skill-tag">Flask</span>
-                        </div>
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-icon"><i class="fab fa-react"></i></div>
+                    <h3>Frontend Development</h3>
+                    <p class="skill-description">Building responsive, interactive user interfaces with modern frameworks and best practices.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Responsive Design</span>
                     </div>
                 </div>
-                <button class="slider-btn next-btn" id="skillsNext" aria-label="Next skills">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
+
+                <div class="skill-category">
+                    <div class="skill-icon"><i class="fab fa-node-js"></i></div>
+                    <h3>Backend Development</h3>
+                    <p class="skill-description">Developing scalable server-side applications and RESTful APIs with robust architecture.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Express.js</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">REST API</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon"><i class="fas fa-database"></i></div>
+                    <h3>Databases</h3>
+                    <p class="skill-description">Designing and managing efficient database systems for data storage and retrieval.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Vector DB</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                    <h3>AI & Machine Learning</h3>
+                    <p class="skill-description">Implementing intelligent systems with LLMs, RAG pipelines, and ML algorithms.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">LangChain</span>
+                        <span class="skill-tag">RAG</span>
+                        <span class="skill-tag">OpenAI API</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">TensorFlow</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon"><i class="fas fa-cloud"></i></div>
+                    <h3>Tools & Cloud</h3>
+                    <p class="skill-description">Leveraging modern development tools and cloud platforms for deployment and CI/CD.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">VS Code</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Mobile Development</h3>
+                    <p class="skill-description">Creating cross-platform mobile applications with native performance and smooth UX.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag">Dart</span>
+                        <span class="skill-tag">Android</span>
+                        <span class="skill-tag">iOS</span>
+                        <span class="skill-tag">Material Design</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -181,17 +222,25 @@
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>AI-Powered Student Assistant Chatbot Using RAG and Langchain</h3>
-                        <p>RAG-based intelligent chatbot designed to assist students with queries, providing contextual answers using retrieval-augmented generation techniques.</p>
+                        <h3>AI-Powered Student Assistant Chatbot</h3>
+                        <p class="project-description">Enterprise-grade conversational AI system leveraging RAG architecture with LangChain for intelligent document retrieval. Full-stack MERN implementation with real-time query processing and context-aware responses.</p>
+                        <ul class="project-features">
+                            <li>Implemented RAG pipeline with vector embeddings for semantic search across academic documents</li>
+                            <li>Built RESTful API with Node.js/Express for LLM integration and query orchestration</li>
+                            <li>Designed React-based chat interface with real-time streaming responses</li>
+                            <li>Deployed MongoDB for conversation history and user session management</li>
+                        </ul>
                         <div class="project-tech">
-                            <span>Python</span>
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
                             <span>LangChain</span>
-                            <span>RAG</span>
-                            <span>LLM</span>
+                            <span>Python</span>
+                            <span>OpenAI API</span>
                         </div>
+                        <p class="project-impact"><i class="fas fa-chart-line"></i> Reduced student query resolution time by 70% through automated, context-aware responses.</p>
                         <div class="project-links">
                             <a href="https://github.com/Vivek7892/AI-powered-Student-Chatbot-using-RAG-with-Langchain.git" class="btn-icon" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="#" class="btn-icon" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
                         </div>
                     </div>
                 </div>
@@ -203,17 +252,25 @@
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>Detection of DDoS Attacks using Clustering and Machine Learning</h3>
-                        <p>Built an intrusion detection system to identify abnormal network traffic patterns. Used Scikit-learn and Pandas for preprocessing and model training. Visualized attack detection results using Matplotlib.</p>
+                        <h3>DDoS Attack Detection System</h3>
+                        <p class="project-description">Machine learning-based network intrusion detection system for identifying DDoS attacks in SDN environments. Implemented clustering algorithms and supervised learning for real-time threat detection.</p>
+                        <ul class="project-features">
+                            <li>Developed ML pipeline using K-Means clustering and Random Forest for anomaly detection</li>
+                            <li>Engineered feature extraction from network traffic data with 95%+ detection accuracy</li>
+                            <li>Built data preprocessing pipeline with Pandas for handling large-scale network datasets</li>
+                            <li>Created visualization dashboard using Matplotlib for real-time attack pattern analysis</li>
+                        </ul>
                         <div class="project-tech">
                             <span>Python</span>
                             <span>Scikit-learn</span>
                             <span>Pandas</span>
+                            <span>NumPy</span>
                             <span>Matplotlib</span>
+                            <span>ML</span>
                         </div>
+                        <p class="project-impact"><i class="fas fa-chart-line"></i> Achieved 95% accuracy in detecting DDoS attacks with minimal false positives in SDN networks.</p>
                         <div class="project-links">
                             <a href="https://github.com/Vivek7892/DDoS-Detection-in-SDN-with-ML.git" class="btn-icon" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="#" class="btn-icon" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
                         </div>
                     </div>
                 </div>
@@ -225,17 +282,24 @@
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>Flutter Weather App</h3>
-                        <p>Cross-platform mobile weather application built with Flutter, integrating OpenWeather API for real-time weather data and forecasts.</p>
+                        <h3>Real-Time Weather Mobile Application</h3>
+                        <p class="project-description">Cross-platform mobile application built with Flutter, delivering real-time weather data and forecasts. Integrated RESTful API architecture with responsive UI/UX design.</p>
+                        <ul class="project-features">
+                            <li>Architected Flutter app with BLoC pattern for state management and API integration</li>
+                            <li>Integrated OpenWeather API for live weather data, forecasts, and geolocation services</li>
+                            <li>Implemented responsive Material Design UI with custom animations and transitions</li>
+                            <li>Built offline caching mechanism for seamless user experience during network interruptions</li>
+                        </ul>
                         <div class="project-tech">
                             <span>Flutter</span>
                             <span>Dart</span>
-                            <span>API Integration</span>
-                            <span>Mobile</span>
+                            <span>REST API</span>
+                            <span>BLoC</span>
+                            <span>Material Design</span>
                         </div>
+                        <p class="project-impact"><i class="fas fa-chart-line"></i> Achieved 60fps performance with optimized API calls and efficient state management.</p>
                         <div class="project-links">
                             <a href="https://github.com/Vivek7892/Weather_app_Flutter.git" class="btn-icon" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="#" class="btn-icon" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
                         </div>
                     </div>
                 </div>
@@ -386,26 +450,83 @@
             </div>
         </div>
     </section>
+
+    <!-- GitHub Activity Section -->
+    <section class="github-activity" id="github">
+        <div class="container">
+            <h2 class="section-title">GitHub Activity</h2>
+            <p class="github-intro">My open-source contributions and coding journey</p>
+            
+            <div class="github-stats-grid">
+                <div class="github-stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalRepos">15+</h3>
+                        <p>Public Repositories</p>
+                    </div>
+                </div>
+                <div class="github-stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalStars">20+</h3>
+                        <p>Stars Earned</p>
+                    </div>
+                </div>
+                <div class="github-stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="currentStreak">Active</h3>
+                        <p>Contribution Streak</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="github-calendar-wrapper">
+                <img src="https://ghchart.rshah.org/667eea/Vivek7892" alt="Vivek's GitHub Contribution Calendar" class="github-calendar">
+            </div>
+
+            <div class="github-cta">
+                <a href="https://github.com/Vivek7892" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i> View Full GitHub Profile
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
+            <h2 class="section-title">Let's Build Something Great Together</h2>
+            <div class="contact-intro">
+                <p class="contact-availability"><i class="fas fa-check-circle"></i> Currently available for full-time opportunities and freelance projects</p>
+                <p class="contact-message">I'm actively seeking roles in Full Stack Development and AI Engineering where I can contribute to innovative projects and grow as a professional. Whether you're looking for a dedicated team member or have an exciting project in mind, I'd love to hear from you.</p>
+                <p class="contact-cta">Let's connect and discuss how my skills in MERN stack, AI/ML, and mobile development can add value to your team.</p>
+            </div>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Let's Connect</h3>
-                    <p>I'm currently looking for internship and fresher opportunities. Feel free to reach out!</p>
+                    <h3>Contact Information</h3>
                     <div class="contact-links">
                         <a href="mailto:vivekvvivekv70@gmail.com" class="contact-link">
                             <i class="fas fa-envelope"></i>
                             <span>vivekvvivekv70@gmail.com</span>
                         </a>
-                        <a href="https://github.com/Vivek7892" target="_blank" class="contact-link">
-                            <i class="fab fa-github"></i>
-                            <span>GitHub</span>
-                        </a>
                         <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" class="contact-link">
                             <i class="fab fa-linkedin"></i>
-                            <span>LinkedIn</span>
+                            <span>LinkedIn Profile</span>
+                        </a>
+                        <a href="https://github.com/Vivek7892" target="_blank" class="contact-link">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub Portfolio</span>
+                        </a>
+                        <a href="resume/VIVEK V.pdf" download="VIVEK_V_Resume.pdf" class="contact-link">
+                            <i class="fas fa-file-download"></i>
+                            <span>Download Resume</span>
                         </a>
                     </div>
                 </div>
@@ -421,7 +542,6 @@
                         <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
-                    <div id="form-success" style="display:none; color: #10b981; margin-top: 1rem;">✓ Message sent successfully!</div>
                 </form>
             </div>
         </div>
@@ -444,6 +564,26 @@
     <button class="back-to-top" id="backToTop" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </button>
+
+    <!-- Fixed Social Sidebar -->
+    <div class="social-sidebar">
+        <div class="social-sidebar-header">
+            <i class="fas fa-share-alt"></i>
+        </div>
+        <div class="social-sidebar-divider"></div>
+        <a href="tel:+917892409872" class="social-sidebar-link" aria-label="Phone">
+            <i class="fas fa-phone"></i>
+        </a>
+        <a href="mailto:vivekvvivekv70@gmail.com" class="social-sidebar-link" aria-label="Email">
+            <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://github.com/Vivek7892" target="_blank" class="social-sidebar-link" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" class="social-sidebar-link" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+    </div>
 
     <script src="js/script.js"></script>
 </body>

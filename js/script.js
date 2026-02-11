@@ -1,4 +1,4 @@
-// Theme Toggle
+// Theme Toggle with localStorage
 const themeToggle = document.getElementById('themeToggle');
 const html = document.documentElement;
 
@@ -10,9 +10,16 @@ updateThemeIcon(currentTheme);
 themeToggle.addEventListener('click', () => {
     const theme = html.getAttribute('data-theme');
     const newTheme = theme === 'light' ? 'dark' : 'light';
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
+    
+    // Add fade animation
+    document.body.style.opacity = '0.8';
+    
+    setTimeout(() => {
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+        document.body.style.opacity = '1';
+    }, 150);
 });
 
 function updateThemeIcon(theme) {
@@ -24,18 +31,29 @@ function updateThemeIcon(theme) {
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 
-hamburger.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    hamburger.classList.toggle('active');
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        hamburger.classList.remove('active');
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
     });
-});
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+    });
+}
 
 // Navbar scroll effect
 const navbar = document.getElementById('navbar');
@@ -53,23 +71,24 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// Active nav link on scroll
+// Active Section Highlighting on Scroll
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.nav-link');
 
 window.addEventListener('scroll', () => {
     let current = '';
+    
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop - 200) {
+        if (pageYOffset >= (sectionTop - 100)) {
             current = section.getAttribute('id');
         }
     });
 
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href').slice(1) === current) {
+        if (link.getAttribute('href') === `#${current}`) {
             link.classList.add('active');
         }
     });
@@ -91,12 +110,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Back to Top Button
 const backToTop = document.getElementById('backToTop');
+const socialSidebar = document.querySelector('.social-sidebar');
 
 window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
+    const scrollPosition = window.pageYOffset;
+    
+    if (scrollPosition > 1000) {
         backToTop.classList.add('show');
+        if (socialSidebar) {
+            socialSidebar.classList.add('show');
+        }
     } else {
         backToTop.classList.remove('show');
+        if (socialSidebar) {
+            socialSidebar.classList.remove('show');
+        }
     }
 });
 
@@ -345,4 +373,47 @@ function initJourneyAnimation() {
     journeyItems.forEach(item => observer.observe(item));
 }
 
+// Typing Animation
+const typingTexts = [
+    "Full-Stack Web Development",
+    "Mobile App Development",
+    "Backend API Development",
+];
 
+let textIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+let typingSpeed = 100;
+
+function typeText() {
+    const typingElement = document.getElementById('typingText');
+    if (!typingElement) return;
+
+    const currentText = typingTexts[textIndex];
+    
+    if (isDeleting) {
+        typingElement.textContent = currentText.substring(0, charIndex - 1);
+        charIndex--;
+        typingSpeed = 50;
+    } else {
+        typingElement.textContent = currentText.substring(0, charIndex + 1);
+        charIndex++;
+        typingSpeed = 100;
+    }
+
+    if (!isDeleting && charIndex === currentText.length) {
+        isDeleting = true;
+        typingSpeed = 2000;
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % typingTexts.length;
+        typingSpeed = 500;
+    }
+
+    setTimeout(typeText, typingSpeed);
+}
+
+// Start typing animation
+window.addEventListener('load', () => {
+    setTimeout(typeText, 1000);
+});
