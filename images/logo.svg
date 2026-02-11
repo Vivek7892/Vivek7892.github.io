@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect width="200" height="200" fill="#0A192F"/>
+  
+  <!-- Left V (Neural Network Style) -->
+  <g stroke="#00FFD1" stroke-width="2" fill="none">
+    <!-- Left V structure -->
+    <line x1="40" y1="60" x2="55" y2="100"/>
+    <line x1="55" y1="100" x2="40" y2="140"/>
+    
+    <!-- Neural nodes -->
+    <circle cx="40" cy="60" r="4" fill="#00FFD1"/>
+    <circle cx="55" cy="100" r="5" fill="#00FFD1"/>
+    <circle cx="40" cy="140" r="4" fill="#00FFD1"/>
+    
+    <!-- Circuit connections -->
+    <line x1="40" y1="60" x2="75" y2="70" opacity="0.6"/>
+    <line x1="40" y1="140" x2="75" y2="130" opacity="0.6"/>
+    <circle cx="75" cy="70" r="3" fill="#00FFD1" opacity="0.7"/>
+    <circle cx="75" cy="130" r="3" fill="#00FFD1" opacity="0.7"/>
+  </g>
+  
+  <!-- Right V (Neural Network Style) -->
+  <g stroke="#00FFD1" stroke-width="2" fill="none">
+    <!-- Right V structure -->
+    <line x1="160" y1="60" x2="145" y2="100"/>
+    <line x1="145" y1="100" x2="160" y2="140"/>
+    
+    <!-- Neural nodes -->
+    <circle cx="160" cy="60" r="4" fill="#00FFD1"/>
+    <circle cx="145" cy="100" r="5" fill="#00FFD1"/>
+    <circle cx="160" cy="140" r="4" fill="#00FFD1"/>
+    
+    <!-- Circuit connections -->
+    <line x1="160" y1="60" x2="125" y2="70" opacity="0.6"/>
+    <line x1="160" y1="140" x2="125" y2="130" opacity="0.6"/>
+    <circle cx="125" cy="70" r="3" fill="#00FFD1" opacity="0.7"/>
+    <circle cx="125" cy="130" r="3" fill="#00FFD1" opacity="0.7"/>
+  </g>
+  
+  <!-- Center connections (Brain-like network) -->
+  <g stroke="#00FFD1" stroke-width="1.5" fill="none" opacity="0.5">
+    <line x1="55" y1="100" x2="100" y2="85"/>
+    <line x1="55" y1="100" x2="100" y2="100"/>
+    <line x1="55" y1="100" x2="100" y2="115"/>
+    <line x1="145" y1="100" x2="100" y2="85"/>
+    <line x1="145" y1="100" x2="100" y2="100"/>
+    <line x1="145" y1="100" x2="100" y2="115"/>
+    
+    <!-- Center nodes -->
+    <circle cx="100" cy="85" r="3" fill="#00FFD1"/>
+    <circle cx="100" cy="100" r="4" fill="#00FFD1"/>
+    <circle cx="100" cy="115" r="3" fill="#00FFD1"/>
+  </g>
+  
+  <!-- Additional neural connections -->
+  <g stroke="#00FFD1" stroke-width="1" opacity="0.3">
+    <line x1="75" y1="70" x2="100" y2="85"/>
+    <line x1="75" y1="130" x2="100" y2="115"/>
+    <line x1="125" y1="70" x2="100" y2="85"/>
+    <line x1="125" y1="130" x2="100" y2="115"/>
+  </g>
+  
+  <!-- Glow effect -->
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <g filter="url(#glow)">
+    <circle cx="100" cy="100" r="4" fill="#00FFD1"/>
+  </g>
+</svg>
