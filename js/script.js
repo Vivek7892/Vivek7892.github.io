@@ -524,3 +524,56 @@ window.addEventListener('scroll', () => {
         }
     });
 });
+
+
+// Projects Slider
+const projectsSlider = document.getElementById('projectsSlider');
+const projectsPrev = document.getElementById('projectsPrev');
+const projectsNext = document.getElementById('projectsNext');
+
+if (projectsSlider && projectsPrev && projectsNext) {
+    projectsPrev.addEventListener('click', () => {
+        projectsSlider.scrollBy({ left: -370, behavior: 'smooth' });
+    });
+
+    projectsNext.addEventListener('click', () => {
+        projectsSlider.scrollBy({ left: 370, behavior: 'smooth' });
+    });
+}
+
+
+// Animated Logo
+const logoTexts = ['Hello 👋', 'ನಮಸ್ಕಾರ 🙏', 'Vivek.dev'];
+let logoIndex = 0;
+let logoCharIndex = 0;
+let isLogoDeleting = false;
+const animatedLogo = document.getElementById('animatedLogo');
+
+function animateLogo() {
+    if (!animatedLogo) return;
+    
+    const currentLogoText = logoTexts[logoIndex];
+    
+    if (isLogoDeleting) {
+        animatedLogo.textContent = currentLogoText.substring(0, logoCharIndex - 1);
+        logoCharIndex--;
+    } else {
+        animatedLogo.textContent = currentLogoText.substring(0, logoCharIndex + 1);
+        logoCharIndex++;
+    }
+    
+    let speed = isLogoDeleting ? 50 : 150;
+    
+    if (!isLogoDeleting && logoCharIndex === currentLogoText.length) {
+        speed = 2000;
+        isLogoDeleting = true;
+    } else if (isLogoDeleting && logoCharIndex === 0) {
+        isLogoDeleting = false;
+        logoIndex = (logoIndex + 1) % logoTexts.length;
+        speed = 500;
+    }
+    
+    setTimeout(animateLogo, speed);
+}
+
+animateLogo();
