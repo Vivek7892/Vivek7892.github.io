@@ -2747,3 +2747,10 @@ button, a.btn, .btn-icon, .contact-link, .theme-toggle, .hamburger {
         display: none;
     }
 }
+
+
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 70px;
+    }
+}
