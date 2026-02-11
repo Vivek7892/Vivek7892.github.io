@@ -417,3 +417,52 @@ function typeText() {
 window.addEventListener('load', () => {
     setTimeout(typeText, 1000);
 });
+
+// Share Button Functionality
+const shareButton = document.querySelector('.social-sidebar-header');
+if (shareButton) {
+    shareButton.style.cursor = 'pointer';
+    shareButton.addEventListener('click', async () => {
+        const shareData = {
+            title: 'Vivek V - Full Stack Developer',
+            text: 'Check out my portfolio! AI & Full Stack Developer specializing in MERN, GenAI, and RAG Chatbots.',
+            url: window.location.href
+        };
+        
+        // Check if Web Share API is supported
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    copyToClipboard();
+                }
+            }
+        } else {
+            copyToClipboard();
+        }
+    });
+}
+
+function copyToClipboard() {
+    const socialLinks = `
+Vivek V - Portfolio
+━━━━━━━━━━━━━━━━━━
+🌐 Website: ${window.location.href}
+💼 LinkedIn: https://linkedin.com/in/vivek-v-a0a41225a
+💻 GitHub: https://github.com/Vivek7892
+📧 Email: vivekvvivekv70@gmail.com
+📱 Phone: +917892409872
+    `.trim();
+    
+    navigator.clipboard.writeText(socialLinks).then(() => {
+        // Show success message
+        const originalIcon = shareButton.innerHTML;
+        shareButton.innerHTML = '<i class="fas fa-check"></i>';
+        setTimeout(() => {
+            shareButton.innerHTML = originalIcon;
+        }, 2000);
+    }).catch(() => {
+        alert('Links copied! Share them with others.');
+    });
+}
