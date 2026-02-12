@@ -14,9 +14,13 @@ function updateClock() {
     
     const timeElement = document.getElementById('liveTime');
     const dateElement = document.getElementById('liveDate');
+    const footerTime = document.getElementById('footerTime');
+    const footerDate = document.getElementById('footerDate');
     
     if (timeElement) timeElement.textContent = `${hours}:${minutes}:${seconds}`;
     if (dateElement) dateElement.textContent = `${day}/${month}/${year}`;
+    if (footerTime) footerTime.textContent = `${hours}:${minutes}:${seconds}`;
+    if (footerDate) footerDate.textContent = `${day}/${month}/${year}`;
 }
 
 updateClock();

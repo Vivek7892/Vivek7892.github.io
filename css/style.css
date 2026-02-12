@@ -169,11 +169,11 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 20px;
+    padding: 0.3rem 20px;
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: var(--text-primary);
 }
@@ -252,8 +252,8 @@ img {
 }
 
 .nav-social-icons a {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -323,8 +323,8 @@ img {
 }
 
 .theme-toggle {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1185,6 +1185,29 @@ section {
     gap: 1rem;
 }
 
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-clock {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.footer-clock i {
+    color: var(--accent-primary);
+}
+
+.footer-divider {
+    color: var(--text-secondary);
+    opacity: 0.5;
+}
+
 .social-links {
     display: flex;
     gap: 1rem;
@@ -1954,8 +1977,8 @@ button, a.btn, .btn-icon, .contact-link, .theme-toggle, .hamburger {
 }
 
 .social-sidebar-link:nth-child(4) {
-    background: linear-gradient(135deg, #25d366, #128c7e);
-    color: white;
+    background: linear-gradient(135deg, #FFDD00, #FDB813);
+    color: #000;
 }
 
 .social-sidebar-link:hover {
