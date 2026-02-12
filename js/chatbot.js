@@ -2,7 +2,7 @@ const pageData = {
   name: "Vivek V",
   role: "Full Stack Developer & AI Engineer",
   education: "B.E. in Computer Science (Data Science), CGPA: 8.37",
-  skills: ["React.js", "Node.js", "MongoDB", "LangChain", "Python", "Flutter", "AWS", "Machine Learning"],
+  skills: ["Python","React.js", "Node.js", "MongoDB", "LangChain", "Flutter", "AWS", "Machine Learning"],
   projects: [
     "AI-Powered Student Assistant Chatbot - RAG-based chatbot using LangChain",
     "DDoS Attack Detection System - ML-based network security",
@@ -10,6 +10,7 @@ const pageData = {
     "Real-Time Weather Mobile Application - Flutter app"
   ],
   contact: {
+    phone:"7892409872",
     email: "vivekvvivekv70@gmail.com",
     linkedin: "linkedin.com/in/vivek-v-a0a41225a",
     github: "github.com/Vivek7892"
