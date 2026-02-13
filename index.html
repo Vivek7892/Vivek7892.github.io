@@ -732,22 +732,6 @@
             <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
-<script>
-const modal = document.getElementById("welcomeModal");
-const btn = document.getElementById("enterBtn");
-
-// Close popup
-btn.onclick = function() {
-  modal.style.display = "none";
-  localStorage.setItem("visited", "true");
-}
-
-// Show only first time
-window.onload = function() {
-  if(localStorage.getItem("visited") === "true"){
-    modal.style.display = "none";
-  }
-}
 </script>
     <script src="js/script.js"></script>
     <script src="js/chatbot.js"></script>

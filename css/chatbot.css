@@ -30,7 +30,7 @@
 }
 
 .chat-widget {
-  position: fixed;
+  position: fi;
   bottom: 30px;
   right: 30px;
   width: 350px;
@@ -45,7 +45,7 @@
 }
 
 .chat-widget.active {
-  display: -moz-inline-stack;
+  display: flex;
 }
 
 .chat-header {
