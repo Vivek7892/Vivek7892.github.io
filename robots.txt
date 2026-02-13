@@ -2,3 +2,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://vivek7892.github.io/
+User-agent: *
+Disallow: /private/
+Disallow: /resume/
+

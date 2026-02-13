@@ -78,6 +78,12 @@ h6 { font-size: 14px; font-weight: 600; }
     font-weight: 500;
     font-size: 15px;
 }
+/*Drag and drop of the profile picture and other images is disabled to prevent accidental dragging and improve user experience. */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
 
 /* Paragraphs and Body Text */
 p, li, span, a, label, input, textarea, button {
