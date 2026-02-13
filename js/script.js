@@ -25,23 +25,6 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
-<script type="application/ld+json">
-{
- "@context": "https://schema.org",
- "@type": "Person",
- "name": "Vivek V",
- "url": "https://vivek7892.github.io/",
- "image": "https://vivek7892.github.io/profile.jpg",
- "sameAs": [
-   "https://github.com/vivek7892",
-   "https://www.linkedin.com/in/vivek-v",
-   "https://twitter.com/"
- ],
- "jobTitle": "Frontend Developer",
- "alumniOf": "Your College Name",
- "knowsAbout": ["Flutter", "Web Development", "Artificial Intelligence", "RAG Chatbot"]
-}
-</script>
 
 // Check for saved theme preference or default to 'light'
 const currentTheme = localStorage.getItem('theme') || 'light';
