@@ -45,7 +45,7 @@
 }
 
 .chat-widget.active {
-  display: flex;
+  display: -moz-inline-stack;
 }
 
 .chat-header {

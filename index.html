@@ -62,6 +62,24 @@
 
 </head>
 <body>
+    <!-- Welcome Popup -->
+<div id="welcomeModal" class="modal">
+  <div class="modal-content">
+    <h2>Welcome 👋</h2>
+    <p>
+      Hi! I'm <b>Vivek V</b>, a Computer Science & Data Science student.
+      This portfolio showcases my projects in Web Development, AI Chatbots,
+      and Flutter App Development.
+    </p>
+
+    <p class="small">
+      Feel free to explore my work and contact me for collaborations or opportunities 🚀
+    </p>
+
+    <button id="enterBtn">Enter Portfolio</button>
+  </div>
+</div>
+
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
@@ -644,6 +662,7 @@
                     <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     <a href="https://github.com/Vivek7892" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
                     <a href="mailto:vivekvvivekv70@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    
                 </div>
             </div>
         </div>
@@ -713,7 +732,23 @@
             <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
+<script>
+const modal = document.getElementById("welcomeModal");
+const btn = document.getElementById("enterBtn");
 
+// Close popup
+btn.onclick = function() {
+  modal.style.display = "none";
+  localStorage.setItem("visited", "true");
+}
+
+// Show only first time
+window.onload = function() {
+  if(localStorage.getItem("visited") === "true"){
+    modal.style.display = "none";
+  }
+}
+</script>
     <script src="js/script.js"></script>
     <script src="js/chatbot.js"></script>
 </body>
