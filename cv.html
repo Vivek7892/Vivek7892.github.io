@@ -48,11 +48,41 @@
             padding: 0 1rem;
         }
 
+        .top-links {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 0.8rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.45rem 0.85rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: var(--card);
+            text-decoration: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
         .cv-card {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 14px;
             padding: 1.5rem;
+        }
+
+        .cv-header {
+            position: relative;
+            padding-right: 170px;
         }
 
         h1 {
@@ -95,6 +125,42 @@
             text-decoration: underline;
         }
 
+        .resume-actions {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+        }
+
+        .resume-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.55rem 0.95rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+            color: #ffffff;
+            background: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .resume-btn:hover {
+            opacity: 0.92;
+        }
+
+        @media (max-width: 640px) {
+            .cv-header {
+                padding-right: 0;
+            }
+
+            .resume-actions {
+                position: static;
+                margin: 0.6rem 0 0.8rem;
+            }
+        }
+
         ul {
             margin: 0.4rem 0 0.85rem 1.2rem;
         }
@@ -121,8 +187,11 @@
 </head>
 <body>
     <div class="wrapper">
+        <div class="top-links">
+            <button class="back-btn" id="backBtn" type="button">Back</button>
+        </div>
         <article class="cv-card">
-            <header>
+            <header class="cv-header">
                 <h1>VIVEK V</h1>
                 <div class="contact">
                     <a href="https://www.linkedin.com/in/vivek-v-a0a41225a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -130,6 +199,9 @@
                     <span>7892409872</span>
                     <a href="mailto:vivekvvivekv70@gmail.com">vivekvvivekv70@gmail.com</a>
                     <a href="https://github.com/Vivek7892" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+                <div class="resume-actions">
+                    <a class="resume-btn" href="resume/VIVEK V.pdf" download="VIVEK_V_Resume.pdf">Download Resume</a>
                 </div>
                 <p>Passionate about building AI-powered applications and scalable web systems that solve real-world problems.</p>
             </header>
@@ -250,6 +322,17 @@
                 setTheme(event.newValue || 'light');
             }
         });
+
+        const backBtn = document.getElementById('backBtn');
+        if (backBtn) {
+            backBtn.addEventListener('click', () => {
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.location.href = 'index.html';
+                }
+            });
+        }
     </script>
 </body>
 </html>

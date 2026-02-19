@@ -207,7 +207,7 @@ if (contactForm) {
             if (data.success) {
                 if (successMsg) {
                     successMsg.style.display = 'block';
-                    successMsg.textContent = '✓ Message sent successfully!';
+                    successMsg.textContent = 'Message sent successfully!';
                 }
                 contactForm.reset();
                 setTimeout(() => {
@@ -220,7 +220,7 @@ if (contactForm) {
             if (successMsg) {
                 successMsg.style.display = 'block';
                 successMsg.style.color = '#ef4444';
-                successMsg.textContent = '✗ Failed to send. Please try again.';
+                successMsg.textContent = 'Failed to send. Please try again.';
             }
         } finally {
             submitBtn.disabled = false;
@@ -308,7 +308,7 @@ if (circles.length === 0 && window.innerWidth > 768) {
 }
 
 // Console message
-console.log('%c👋 Hello! Thanks for checking out my portfolio!', 'color: #667eea; font-size: 20px; font-weight: bold;');
+console.log('%cHello! Thanks for checking out my portfolio!', 'color: #667eea; font-size: 20px; font-weight: bold;');
 console.log('%cInterested in the code? Check out the GitHub repo!', 'color: #764ba2; font-size: 14px;');
 
 
@@ -349,7 +349,7 @@ function displayRepos(repos) {
         <div class="repo-card">
             <h3>${repo.name}</h3>
             <p>${repo.description || 'No description available'}</p>
-            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">View Repository →</a>
+            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">View Repository -></a>
         </div>
     `).join('');
 }
@@ -455,12 +455,12 @@ if (shareButton) {
 function copyToClipboard() {
     const socialLinks = `
 Vivek V - Portfolio
-━━━━━━━━━━━━━━━━━━
-🌐 Website: ${window.location.href}
-💼 LinkedIn: https://linkedin.com/in/vivek-v-a0a41225a
-💻 GitHub: https://github.com/Vivek7892
-📧 Email: vivekvvivekv70@gmail.com
-📱 Phone: +917892409872
+----------------------
+Website: ${window.location.href}
+LinkedIn: https://linkedin.com/in/vivek-v-a0a41225a
+GitHub: https://github.com/Vivek7892
+Email: vivekvvivekv70@gmail.com
+Phone: +917892409872
     `.trim();
     
     navigator.clipboard.writeText(socialLinks).then(() => {
@@ -531,7 +531,7 @@ if (projectsSlider && projectsPrev && projectsNext) {
 
 
 // Animated Logo
-const logoTexts = ['Hello👋|', 'ನಮಸ್ಕಾರ 👋|', 'Vivek.dev'];
+const logoTexts = ['Hello |', 'Namaskar |', 'Vivek.dev'];
 let logoIndex = 0;
 let logoCharIndex = 0;
 let isLogoDeleting = false;
