@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivek V - CV</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="apple-touch-icon" href="images/favicon.svg">
+    <style>
+        :root {
+            --bg: #f7f9fc;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #4b5563;
+            --border: #e5e7eb;
+            --accent: #2563eb;
+            --button-bg: #ffffff;
+            --button-text: #1f2937;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --card: #111827;
+            --text: #f3f4f6;
+            --muted: #cbd5e1;
+            --border: #334155;
+            --accent: #60a5fa;
+            --button-bg: #1f2937;
+            --button-text: #f3f4f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .wrapper {
+            max-width: 920px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .cv-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.4rem;
+        }
+
+        h2 {
+            margin-top: 1.7rem;
+            margin-bottom: 0.7rem;
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.35rem;
+        }
+
+        h3 {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        p {
+            color: var(--muted);
+            margin-bottom: 0.45rem;
+        }
+
+        .contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.2rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .contact a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            margin: 0.4rem 0 0.85rem 1.2rem;
+        }
+
+        li {
+            margin-bottom: 0.35rem;
+        }
+
+        .item {
+            margin-bottom: 1rem;
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-bottom: 0.45rem;
+        }
+
+        .tech {
+            color: var(--text);
+            font-size: 0.92rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <article class="cv-card">
+            <header>
+                <h1>VIVEK V</h1>
+                <div class="contact">
+                    <a href="https://www.linkedin.com/in/vivek-v-a0a41225a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://vivek7892.github.io/" target="_blank" rel="noopener noreferrer">Portfolio</a>
+                    <span>7892409872</span>
+                    <a href="mailto:vivekvvivekv70@gmail.com">vivekvvivekv70@gmail.com</a>
+                    <a href="https://github.com/Vivek7892" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+                <p>Passionate about building AI-powered applications and scalable web systems that solve real-world problems.</p>
+            </header>
+
+            <section>
+                <h2>Professional Experience</h2>
+                <div class="item">
+                    <h3>Apisis Solutions - Mobile Application Development Intern</h3>
+                    <p class="meta">Feb 2026 - Present</p>
+                    <ul>
+                        <li>Developed cross-platform mobile and web interfaces using Dart (Flutter), HTML, CSS, and JavaScript with responsive screens across devices.</li>
+                        <li>Worked on a Home Automation system to monitor and control smart appliances, including device-control logic, user workflows, and backend communication.</li>
+                        <li>Built a real-time Weather Forecast application with third-party REST APIs, asynchronous data handling, JSON parsing, and dynamic UI updates.</li>
+                        <li>Supported backend and maintenance tasks including debugging, performance optimization, basic Django API handling, and collaboration using Git.</li>
+                    </ul>
+                    <p class="tech"><strong>Technologies:</strong> Dart (Flutter), HTML, CSS, JavaScript, REST APIs, Git</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Projects</h2>
+
+                <div class="item">
+                    <h3>AI Powered Student Learning Platform using RAG with LangChain</h3>
+                    <ul>
+                        <li>Developed a full-stack AI chatbot using the MERN stack to answer academic queries in real time, with responsive React UI and RESTful backend APIs.</li>
+                        <li>Designed a RAG pipeline to process uploaded PDF/DOCX/TXT documents, generate embeddings, and perform semantic search for accurate responses.</li>
+                        <li>Integrated AWS services including Amazon Bedrock, Amazon S3, and Cognito-based authentication.</li>
+                        <li>Implemented real-time chat with Socket.IO, maintained conversation history in MongoDB, and structured modular backend services for scalability.</li>
+                    </ul>
+                    <p class="tech"><strong>Tech Stack:</strong> MERN Stack, LangChain, Gemini API, AWS S3, Socket.IO</p>
+                </div>
+
+                <div class="item">
+                    <h3>DDoS Detection in SDN with ML</h3>
+                    <ul>
+                        <li>Built an intrusion detection system to identify abnormal network traffic patterns.</li>
+                        <li>Used Scikit-learn and Pandas for preprocessing and model training.</li>
+                        <li>Visualized attack detection results using Matplotlib.</li>
+                    </ul>
+                    <p class="tech"><strong>Tech Stack:</strong> Python, Scikit-learn, Pandas, Matplotlib</p>
+                </div>
+
+                <div class="item">
+                    <h3>Weather Mobile Application</h3>
+                    <ul>
+                        <li>Developed a cross-platform weather app in Flutter with Material UI, responsive layouts, and dark/light theme support.</li>
+                        <li>Integrated OpenWeatherMap REST API with GPS location and city search for real-time weather, hourly, and 7-day forecasts.</li>
+                        <li>Implemented MVVM architecture with Provider, async API handling, JSON parsing, caching, and offline storage.</li>
+                        <li>Added error handling, loading states, and performance optimizations for smooth user experience.</li>
+                    </ul>
+                    <p class="tech"><strong>Tech Stack:</strong> Flutter, Dart, REST API, Provider, Geolocator, Shared Preferences, HTTP Package</p>
+                </div>
+
+                <div class="item">
+                    <h3>AI-Powered Document Verification System</h3>
+                    <ul>
+                        <li>Developed a web app to upload and automatically verify identity documents (Aadhaar/PAN/Certificates) using OCR-based text extraction.</li>
+                        <li>Implemented image preprocessing and validation logic to compare extracted Name, DOB, and ID numbers against user inputs.</li>
+                        <li>Built secure login and admin dashboard with database storage to approve/reject documents and track verification status.</li>
+                    </ul>
+                    <p class="tech"><strong>Tech Stack:</strong> Python, Flask, OpenCV, MongoDB, Tesseract OCR</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Technical Skills</h2>
+                <ul>
+                    <li><strong>Programming Languages & Technologies:</strong> Python, C, Dart, JavaScript, HTML, CSS, Flutter, MERN Stack, Django, MySQL, REST APIs, Git & GitHub</li>
+                    <li><strong>Tools & Concepts:</strong> Retrieval-Augmented Generation (RAG), LLM APIs, Prompt Engineering, API Integration</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Education</h2>
+                <div class="item">
+                    <h3>ATME College of Engineering, Mysuru</h3>
+                    <p class="meta">Bachelor of Engineering in CSE (Data Science) - 8.37 CGPA | 2022-2026</p>
+                </div>
+                <div class="item">
+                    <h3>JSS PU College, SJCE Campus, Mysuru</h3>
+                    <p class="meta">PCMB - 91.17% | 2020-2022</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Additional Information</h2>
+                <h3>Certifications</h3>
+                <ul>
+                    <li>Python Foundations Certification - Infosys Springboard</li>
+                    <li>Data Engineering Training - IVIS Lab</li>
+                </ul>
+                <h3>Publications</h3>
+                <ul>
+                    <li>Published research paper: "A Review on RAG-Based Student Assistant Chatbot using LangChain" in EPRA IJRD, Vol.10, Issue 8, Aug 2025</li>
+                    <li>DOI: <a href="https://doi.org/10.36713/epra23698" target="_blank" rel="noopener noreferrer">https://doi.org/10.36713/epra23698</a></li>
+                </ul>
+                <ul>
+                    <li>Participation: CODE-HUNT 2025, Vidyavardhaka College of Engineering</li>
+                    <li>Languages Known: English (Professional), Kannada (Native), Hindi (Limited)</li>
+                    <li>Interests: AI & Chatbot Development, Full-Stack Web & Mobile App Development, Problem Solving, Learning New Technologies</li>
+                </ul>
+            </section>
+        </article>
+    </div>
+    <script>
+        const root = document.documentElement;
+        const savedTheme = localStorage.getItem('theme') || 'light';
+
+        function setTheme(theme) {
+            root.setAttribute('data-theme', theme);
+        }
+
+        setTheme(savedTheme);
+
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'theme') {
+                setTheme(event.newValue || 'light');
+            }
+        });
+    </script>
+</body>
+</html>

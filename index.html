@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Vivek V - AI & Full Stack Developer | Final Year CSE Student specializing in AI, GenAI, and Full Stack Development">
-   <meta name="google-site-verification" content="farR8TN9a8QL7v4Na5Z1lJsHxZyHfhbFk4RptYFS874" />
-   <meta name="description" content="Vivek V - Computer Science Student, Full Stack Developer, AI & RAG Chatbot Developer. View my projects, resume, and contact information." />
-    <meta name="description" content="Vivek V - Computer Science Student, Full Stack Developer, AI & RAG Chatbot Developer. View my projects, resume, and contact information." />
-    <meta name="keywords" content="AI Developer, Full Stack Developer, Machine Learning, Portfolio">
-    <meta name="description" content="Vivek V - Frontend Developer and AI Student. Portfolio includes Flutter apps, Student Chatbot, AI Document Verification and Web Development projects.">
-<meta name="keywords" content="Vivek V, vivek7892, frontend developer portfolio, flutter developer, AI chatbot, student chatbot project, web developer India">
-<meta name="author" content="Vivek V">
-
+    <meta name="description" content="Vivek V - Computer Science student and Full Stack Developer building AI-powered applications, RAG chatbots, and scalable web solutions.">
+    <meta name="keywords" content="Vivek V, Full Stack Developer, AI Developer, RAG Chatbot, React, Node.js, Python, Portfolio">
     <meta name="author" content="Vivek V">
+    <meta name="google-site-verification" content="farR8TN9a8QL7v4Na5Z1lJsHxZyHfhbFk4RptYFS874">
     <title>Vivek V</title>
     <meta property="og:title" content="Vivek V Portfolio">
+    <meta property="og:description" content="Portfolio of Vivek V - Full Stack and AI developer focused on practical, production-ready solutions.">
     <meta property="og:image" content="https://vivek7892.github.io/profile.jpg">
     <meta property="og:url" content="https://vivek7892.github.io/">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vivek V Portfolio">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vivek V Portfolio">
+    <meta name="twitter:description" content="Full Stack and AI developer portfolio with projects, skills, and contact details.">
+    <meta name="twitter:image" content="https://vivek7892.github.io/profile.jpg">
 
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
     <!-- Google Fonts - Professional Typography -->
@@ -25,6 +25,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/chatbot.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Analytics -->
@@ -35,11 +36,6 @@
       gtag('js', new Date());
       gtag('config', 'YOUR_GA_ID');
     </script>
-    <script>
-    var email = "vivek" + "7892" + "@gmail.com";
-    document.write(email);
-        </script>
-
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -70,19 +66,15 @@
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="project.html" class="nav-link">Projects</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#education" class="nav-link">Education</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="cv.html" class="nav-link" target="_blank" rel="noopener noreferrer">CV</a></li>
             </ul>
-            <div class="nav-right">
-                <div class="live-clock">
-                    <div class="clock-time" id="liveTime"></div>
-                    <div class="clock-date" id="liveDate"></div>
-                </div>
                 <div class="nav-social-icons">
-                    <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/Vivek7892" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Vivek7892" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
                     <a href="mailto:vivekvvivekv70@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
 
                 </div>
@@ -98,18 +90,17 @@
                     <span></span>
                 </button>
             </div>
-        </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container hero-container">
             <div class="hero-content">
-                <h1 class="hero-title">👋 Hello I'm <span class="gradient-text">Vivek</span></h1>
+                <h1 class="hero-title">👋 Hello, I'm <span class="gradient-text">Vivek</span></h1>
                 <h2 class="hero-subtitle">Full Stack Developer</h2>
                 <p class="hero-typing">I build <span id="typingText" class="typing-text"></span><span class="typing-cursor">|</span></p>
-                <p class="hero-tagline">Building production-ready MERN applications with intelligent AI capabilities.<br>Specializing in RAG chatbots and LLM-powered solutions.</p>
-                <p class="hero-description">Experienced in developing scalable web applications using React, Node.js, and MongoDB. Expert in implementing RAG-based chatbots with LangChain and LLM APIs. Proficient in building cross-platform mobile apps with Flutter.</p>
+                <p class="hero-tagline">Building production-ready MERN applications with intelligent AI capabilities and Python Full stack development.<br>Specializing in Full Stack Applications development</p>
+                <p class="hero-description">Experienced in developing scalable web applications using React, Node.js, and MongoDB. Expert in implementing Full stack Development. Proficient in building cross-platform mobile apps with Flutter.</p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i> View Projects</a>
                     <a href="resume/VIVEK V.pdf" class="btn-resume-glow" download="VIVEK_V_Resume.pdf"><i class="fas fa-download"></i> Download Resume</a>
@@ -130,7 +121,7 @@
                 </div>
                 <div class="hero-profile-pic" id="heroProfilePic">
                     <img src="images/profile.jpg" alt="Vivek V - Full Stack Developer & Generative AI Engineer">
-                    <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" class="open-to-work-badge">
+                    <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" rel="noopener noreferrer" class="open-to-work-badge">
                         <i class="fas fa-briefcase"></i>
                         Open to Work
                     </a>
@@ -149,16 +140,19 @@
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>I'm a final-year <strong>Computer Science & Data Science Engineering</strong> student with a passion for creating innovative AI-powered solutions and modern web applications.</p>
-                    <p>My expertise lies in <strong>Artificial Intelligence, Generative AI, RAG-based chatbots,</strong> and <strong>Full Stack Development</strong>. I enjoy building intelligent systems that solve real-world problems and enhance user experiences.</p>
-                    <p>With strong communication skills and a collaborative mindset, I'm actively seeking opportunities as a <strong>Software Developer</strong> or <strong>AI Engineer</strong> where I can contribute to impactful projects and continue growing professionally.</p>
+                    <p class="about-subtitle">AI & Backend Developer</p>
+<p>I am a final-year <strong>Computer Science & Data Science undergraduate</strong> focused on building real-world <strong>AI-powered applications</strong>.</p>
+<p>I have developed a <strong>Retrieval-Augmented Generation (RAG) chatbot</strong> that answers questions from documents, a <strong>machine learning-based DDoS detection system</strong>, and a <strong>document verification tool</strong> using computer vision.</p>
+<p>My primary stack includes <strong>Python, LangChain, Node.js, and MongoDB</strong>. I enjoy designing backend systems, integrating APIs, and building practical AI solutions.</p>
+<p>Currently seeking an <strong>entry-level Software Developer or AI Developer</strong> role where I can contribute to backend and AI-driven applications.</p>
+
                     <div class="about-stats">
                         <div class="stat-item">
                             <h3>8.37</h3>
                             <p>CGPA</p>
                         </div>
                         <div class="stat-item">
-                            <h3>8+</h3>
+                            <h3>5+</h3>
                             <p>Projects</p>
                         </div>
                         <div class="stat-item">
@@ -257,135 +251,135 @@
     </section>
 
     <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-slider-wrapper">
-                <button class="slider-btn prev-btn" id="projectsPrev"><i class="fas fa-chevron-left"></i></button>
-                <div class="projects-grid" id="projectsSlider">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>AI-Powered Student Assistant Chatbot</h3>
-                        <p class="project-description">Enterprise-grade conversational AI system leveraging RAG architecture with LangChain for intelligent document retrieval. Full-stack MERN implementation with real-time query processing and context-aware responses.</p>
-                        <ul class="project-features">
-                            <li>Implemented RAG pipeline with vector embeddings for semantic search across academic documents</li>
-                            <li>Built RESTful API with Node.js/Express for LLM integration and query orchestration</li>
-                            <li>Designed React-based chat interface with real-time streaming responses</li>
-                            <li>Deployed MongoDB for conversation history and user session management</li>
-                        </ul>
-                        <div class="project-tech">
-                            <span>React</span>
-                            <span>Node.js</span>
-                            <span>MongoDB</span>
-                            <span>LangChain</span>
-                            <span>Python</span>
-                            <span>OpenAI API</span>
-                        </div>
-                        <p class="project-impact"><i class="fas fa-chart-line"></i> Reduced student query resolution time by 70% through automated, context-aware responses.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/Vivek7892/AI-powered-Student-Chatbot-using-RAG-with-Langchain.git" class="btn-icon" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
+  <section class="projects" id="projects">
+  <div class="container">
 
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>DDoS Attack Detection System</h3>
-                        <p class="project-description">Machine learning-based network intrusion detection system for identifying DDoS attacks in SDN environments. Implemented clustering algorithms and supervised learning for real-time threat detection.</p>
-                        <ul class="project-features">
-                            <li>Developed ML pipeline using K-Means clustering and Random Forest for anomaly detection</li>
-                            <li>Engineered feature extraction from network traffic data with 95%+ detection accuracy</li>
-                            <li>Built data preprocessing pipeline with Pandas for handling large-scale network datasets</li>
-                            <li>Created visualization dashboard using Matplotlib for real-time attack pattern analysis</li>
-                        </ul>
-                        <div class="project-tech">
-                            <span>Python</span>
-                            <span>Scikit-learn</span>
-                            <span>Pandas</span>
-                            <span>NumPy</span>
-                            <span>Matplotlib</span>
-                            <span>ML</span>
-                        </div>
-                        <p class="project-impact"><i class="fas fa-chart-line"></i> Achieved 95% accuracy in detecting DDoS attacks with minimal false positives in SDN networks.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/Vivek7892/DDoS-Detection-in-SDN-with-ML.git" class="btn-icon" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
+    <h2 class="section-title">Projects</h2>
 
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-file-contract"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>AI-Powered Document Verification System</h3>
-                        <p class="project-description">Intelligent document verification system using AI and machine learning to automate document authentication and fraud detection. Built with modern web technologies for seamless integration.</p>
-                        <ul class="project-features">
-                            <li>Implemented AI-based document analysis for authenticity verification</li>
-                            <li>Developed automated fraud detection algorithms with high accuracy</li>
-                            <li>Built secure document processing pipeline with encryption</li>
-                            <li>Created user-friendly interface for document upload and verification results</li>
-                        </ul>
-                        <div class="project-tech">
-                            <span>Python</span>
-                            <span>Machine Learning</span>
-                            <span>OpenCV</span>
-                            <span>Flask</span>
-                            <span>AI</span>
-                        </div>
-                        <p class="project-impact"><i class="fas fa-chart-line"></i> Automated document verification process reducing manual review time by 80%.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/Vivek7892/AI-powered-document-verification-system-.git" class="btn-icon" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
+    <div class="projects-grid">
 
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-cloud-sun"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Real-Time Weather Mobile Application</h3>
-                        <p class="project-description">Cross-platform mobile application built with Flutter, delivering real-time weather data and forecasts. Integrated RESTful API architecture with responsive UI/UX design.</p>
-                        <ul class="project-features">
-                            <li>Architected Flutter app with BLoC pattern for state management and API integration</li>
-                            <li>Integrated OpenWeather API for live weather data, forecasts, and geolocation services</li>
-                            <li>Implemented responsive Material Design UI with custom animations and transitions</li>
-                            <li>Built offline caching mechanism for seamless user experience during network interruptions</li>
-                        </ul>
-                        <div class="project-tech">
-                            <span>Flutter</span>
-                            <span>Dart</span>
-                            <span>REST API</span>
-                            <span>BLoC</span>
-                            <span>Material Design</span>
-                        </div>
-                        <p class="project-impact"><i class="fas fa-chart-line"></i> Achieved 60fps performance with optimized API calls and efficient state management.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/Vivek7892/Weather_app_Flutter.git" class="btn-icon" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="slider-btn next-btn" id="projectsNext"><i class="fas fa-chevron-right"></i></button>
+      <!-- Project 1 -->
+      <div class="project-card">
+        <div class="project-top">
+          <i class="fas fa-folder folder-icon"></i>
+
+          <div class="project-links">
+            <a href="https://github.com/Vivek7892/AI-powered-Student-Chatbot-using-RAG-with-Langchain.git" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="project.html#student-chatbot" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
         </div>
-        </div>
-    </section>
 
+        <h3>AI Student Assistant Chatbot</h3>
+
+        <p class="project-description">
+          AI chatbot that answers questions directly from uploaded PDFs using RAG and LangChain with context-aware responses.
+        </p>
+
+        <div class="project-tech">
+          <span>Python</span>
+          <span>LangChain</span>
+          <span>Node.js</span>
+          <span>MongoDB</span>
+          <span>React</span>
+        </div>
+      </div>
+
+
+      <!-- Project 2 -->
+      <div class="project-card">
+        <div class="project-top">
+          <i class="fas fa-folder folder-icon"></i>
+
+          <div class="project-links">
+            <a href="https://github.com/Vivek7892/DDoS-Detection-in-SDN-with-ML.git" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="project.html#ddos-detection" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+
+        <h3>DDoS Detection System</h3>
+
+        <p class="project-description">
+          Machine learning system that detects abnormal network traffic using Random Forest model and real-time feature analysis.
+        </p>
+
+        <div class="project-tech">
+          <span>Python</span>
+          <span>Scikit-learn</span>
+          <span>Pandas</span>
+          <span>NumPy</span>
+        </div>
+      </div>
+
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <div class="project-top">
+          <i class="fas fa-folder folder-icon"></i>
+
+          <div class="project-links">
+            <a href="https://github.com/Vivek7892/AI-powered-document-verification-system-.git" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="project.html#document-verification" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+
+        <h3>Document Verification System</h3>
+
+        <p class="project-description">
+          Computer-vision based system to verify authenticity of uploaded documents and detect tampering automatically.
+        </p>
+
+        <div class="project-tech">
+          <span>Python</span>
+          <span>OpenCV</span>
+          <span>Flask</span>
+          <span>Machine Learning</span>
+        </div>
+      </div>
+
+
+      <!-- Project 4 -->
+      <div class="project-card">
+        <div class="project-top">
+          <i class="fas fa-folder folder-icon"></i>
+
+          <div class="project-links">
+            <a href="https://github.com/Vivek7892/Weather_app_Flutter.git" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="project.html#weather-app" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+
+        <h3>Weather Mobile Application</h3>
+
+        <p class="project-description">
+          Cross-platform Flutter app showing live weather and forecasts using API integration and geolocation.
+        </p>
+
+        <div class="project-tech">
+          <span>Flutter</span>
+          <span>Dart</span>
+          <span>REST API</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
     <!-- Experience Section -->
     <section class="experience" id="experience">
         <div class="container">
@@ -397,8 +391,8 @@
                         <h3>Python Foundations Certification</h3>
                         <p class="timeline-company">Infosys Springboard</p>
                         <p class="timeline-description">
-                            • Completed comprehensive Python programming certification<br>
-                            • Gained proficiency in Python fundamentals and core concepts
+                            - Completed comprehensive Python programming certification<br>
+                            - Gained proficiency in Python fundamentals and core concepts
                         </p>
                     </div>
                 </div>
@@ -408,8 +402,8 @@
                         <h3>Data Engineering</h3>
                         <p class="timeline-company">IVIS Lab</p>
                         <p class="timeline-description">
-                            • Worked on data engineering projects and pipelines<br>
-                            • Gained hands-on experience with data processing and analysis
+                            - Worked on data engineering projects and pipelines<br>
+                            - Gained hands-on experience with data processing and analysis
                         </p>
                     </div>
                 </div>
@@ -419,10 +413,10 @@
                         <h3>Mobile Application Development Intern</h3>
                         <p class="timeline-company">Internship</p>
                         <p class="timeline-description">
-                            • Implemented responsive UI components and converted design mockups to Flutter widgets<br>
-                            • Developed navigation flows and routing systems for seamless user experience<br>
-                            • Created and validated forms with proper input handling and error management<br>
-                            • Collaborated with team members to integrate frontend with backend services
+                            - Implemented responsive UI components and converted design mockups to Flutter widgets<br>
+                            - Developed navigation flows and routing systems for seamless user experience<br>
+                            - Created and validated forms with proper input handling and error management<br>
+                            - Collaborated with team members to integrate frontend with backend services
                         </p>
                     </div>
                 </div>
@@ -442,7 +436,7 @@
                     <h3>A Review on RAG-Based Student Assistant Chatbot using LangChain</h3>
                     <p class="publication-journal">EPRA International Journal of Research and Development (IJRD)</p>
                     <p class="publication-details">VOL.10 Issue 8, August 2025</p>
-                    <a href="https://doi.org/10.36713/epra23698" target="_blank" class="publication-doi">
+                    <a href="https://doi.org/10.36713/epra23698" target="_blank" rel="noopener noreferrer" class="publication-doi">
                         <i class="fas fa-external-link-alt"></i> DOI: 10.36713/epra23698
                     </a>
                 </div>
@@ -457,7 +451,7 @@
             <div class="education-certifications-wrapper">
                 <div class="education-timeline">
                     <div class="education-item">
-                        <div class="education-year">2022 – 2026</div>
+                        <div class="education-year">2022 - 2026</div>
                         <div class="education-card">
                             <div class="education-icon">
                                 <i class="fas fa-graduation-cap"></i>
@@ -472,7 +466,7 @@
                     </div>
 
                     <div class="education-item">
-                        <div class="education-year">2020 – 2022</div>
+                        <div class="education-year">2020 - 2022</div>
                         <div class="education-card">
                             <div class="education-icon">
                                 <i class="fas fa-book"></i>
@@ -486,7 +480,7 @@
                     </div>
 
                     <div class="education-item">
-                        <div class="education-year">2019 – 2020</div>
+                        <div class="education-year">2019 - 2020</div>
                         <div class="education-card">
                             <div class="education-icon">
                                 <i class="fas fa-school"></i>
@@ -567,11 +561,11 @@
             </div>
 
             <div class="github-calendar-wrapper">
-                <img src="https://ghchart.rshah.org/667eea/Vivek7892" alt="Vivek's GitHub Contribution Calendar" class="github-calendar">
+                <img src="https://ghchart.rshah.org/667eea/Vivek7892" alt="Vivek's GitHub Contribution Calendar" class="github-calendar" loading="lazy" decoding="async">
             </div>
 
             <div class="github-cta">
-                <a href="https://github.com/Vivek7892" target="_blank" class="btn btn-primary">
+                <a href="https://github.com/Vivek7892" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
                     <i class="fab fa-github"></i> View Full GitHub Profile
                 </a>
             </div>
@@ -595,11 +589,11 @@
                             <i class="fas fa-envelope"></i>
                             <span>vivekvvivekv70@gmail.com</span>
                         </a>
-                        <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" class="contact-link">
+                        <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" rel="noopener noreferrer" class="contact-link">
                             <i class="fab fa-linkedin"></i>
                             <span>LinkedIn Profile</span>
                         </a>
-                        <a href="https://github.com/Vivek7892" target="_blank" class="contact-link">
+                        <a href="https://github.com/Vivek7892" target="_blank" rel="noopener noreferrer" class="contact-link">
                             <i class="fab fa-github"></i>
                             <span>GitHub Portfolio</span>
                         </a>
@@ -641,8 +635,8 @@
                     </div>
                 </div>
                 <div class="social-links">
-                    <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/Vivek7892" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Vivek7892" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
                     <a href="mailto:vivekvvivekv70@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                     
                 </div>
@@ -656,19 +650,19 @@
 
     <!-- Fixed Social Sidebar -->
     <div class="social-sidebar">
-        <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" class="social-sidebar-link" aria-label="LinkedIn">
+        <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" aria-label="LinkedIn">
             <i class="fab fa-linkedin"></i>
         </a>
-        <a href="https://github.com/Vivek7892" target="_blank" class="social-sidebar-link" aria-label="GitHub">
+        <a href="https://github.com/Vivek7892" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" aria-label="GitHub">
             <i class="fab fa-github"></i>
         </a>
-        <a href ="https://wa.me/917892409872?text=Hello%20Vivek,%20I%20visited%20your%20portfolio " target="_blank" class="social-sidebar-link" aria-label="Twitter">
+        <a href ="https://wa.me/917892409872?text=Hello%20Vivek,%20I%20visited%20your%20portfolio " target="_blank" rel="noopener noreferrer" class="social-sidebar-link" aria-label="WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
         <a href="mailto:vivekvvivekv70@gmail.com" class="social-sidebar-link" aria-label="Email">
             <i class="fas fa-envelope"></i>
         </a>
-        <a href="https://buymeacoffee.com/vivekvvivex" target="_blank" class="social-sidebar-link" aria-label="Buy Me a Coffee">
+        <a href="https://buymeacoffee.com/vivekvvivex" target="_blank" rel="noopener noreferrer" class="social-sidebar-link" aria-label="Buy Me a Coffee">
             <i class="fas fa-coffee"></i>
         </a>
     </div>
@@ -714,9 +708,9 @@
             <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
-</script>
-    <script src="js/script.js"></script>
-    <script src="js/chatbot.js"></script>
+    <script src="js/script.js" defer></script>
+    <script src="js/chatbot.js" defer></script>
 
 </body>
 </html>
+

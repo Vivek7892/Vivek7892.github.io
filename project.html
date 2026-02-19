@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivek V - Project Details</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <style>
+        :root {
+            --bg: #f7f9fc;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #4b5563;
+            --border: #e5e7eb;
+            --accent: #2563eb;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --card: #111827;
+            --text: #f3f4f6;
+            --muted: #cbd5e1;
+            --border: #334155;
+            --accent: #60a5fa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 1.2rem 1rem 2rem;
+        }
+
+        .top-links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .top-links a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .top-links a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .intro {
+            color: var(--muted);
+            margin-bottom: 1.2rem;
+        }
+
+        .project {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .project h2 {
+            font-size: 1.2rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .project p {
+            color: var(--muted);
+            margin-bottom: 0.55rem;
+        }
+
+        .subhead {
+            margin-top: 0.5rem;
+            margin-bottom: 0.35rem;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        ul {
+            margin: 0.2rem 0 0.7rem 1.1rem;
+        }
+
+        li {
+            margin-bottom: 0.3rem;
+        }
+
+        .stack {
+            font-size: 0.92rem;
+        }
+
+        .project-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin-top: 0.35rem;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: transparent;
+            border-radius: 8px;
+            padding: 0.45rem 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-links">
+            <a href="index.html#projects">Back to Portfolio Projects</a>
+            <a href="index.html" target="_blank" rel="noopener noreferrer">Open Full Portfolio</a>
+        </div>
+
+        <h1>Project Details</h1>
+        <p class="intro">Detailed explanation of architecture, implementation, and outcomes for each major project.</p>
+
+        <section class="project" id="student-chatbot">
+            <h2>AI Student Assistant Chatbot</h2>
+            <p>A full-stack AI assistant that answers student questions using uploaded academic documents with retrieval-augmented generation.</p>
+            <p class="subhead"><strong>What it does</strong></p>
+            <ul>
+                <li>Lets users upload PDF/DOCX/TXT files and ask natural language questions.</li>
+                <li>Searches document chunks using semantic similarity, then answers with contextual evidence.</li>
+                <li>Maintains conversation history for follow-up questions.</li>
+            </ul>
+            <p class="subhead"><strong>How it is built</strong></p>
+            <ul>
+                <li>Frontend in React for chat UI, file upload flow, and session control.</li>
+                <li>Backend in Node.js/Express for orchestration and API endpoints.</li>
+                <li>RAG workflow with LangChain to split, embed, index, and retrieve content.</li>
+                <li>MongoDB for user/session metadata and chat history.</li>
+            </ul>
+            <p class="stack"><strong>Tech Stack:</strong> React, Node.js, Express, MongoDB, LangChain, Python, OpenAI/Gemini APIs</p>
+            <div class="project-actions">
+                <a class="btn" href="https://github.com/Vivek7892/AI-powered-Student-Chatbot-using-RAG-with-Langchain.git" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+            </div>
+        </section>
+
+        <section class="project" id="ddos-detection">
+            <h2>DDoS Detection System (SDN + ML)</h2>
+            <p>An ML-based intrusion detection workflow to identify suspicious traffic patterns and potential DDoS events.</p>
+            <p class="subhead"><strong>What it does</strong></p>
+            <ul>
+                <li>Processes network traffic features and classifies normal vs. malicious behavior.</li>
+                <li>Generates interpretable output for model behavior and detection quality.</li>
+            </ul>
+            <p class="subhead"><strong>How it is built</strong></p>
+            <ul>
+                <li>Data preprocessing and feature engineering with Pandas/NumPy.</li>
+                <li>Training and evaluation using Scikit-learn classification models.</li>
+                <li>Visualization with Matplotlib for distribution and detection insights.</li>
+            </ul>
+            <p class="stack"><strong>Tech Stack:</strong> Python, Scikit-learn, Pandas, NumPy, Matplotlib</p>
+            <div class="project-actions">
+                <a class="btn" href="https://github.com/Vivek7892/DDoS-Detection-in-SDN-with-ML.git" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+            </div>
+        </section>
+
+        <section class="project" id="document-verification">
+            <h2>AI-Powered Document Verification System</h2>
+            <p>A verification platform that analyzes uploaded identity/certificate documents and detects inconsistencies.</p>
+            <p class="subhead"><strong>What it does</strong></p>
+            <ul>
+                <li>Extracts text from document images using OCR.</li>
+                <li>Compares extracted fields against user-provided data.</li>
+                <li>Flags mismatches and possible tampering patterns.</li>
+            </ul>
+            <p class="subhead"><strong>How it is built</strong></p>
+            <ul>
+                <li>Flask app for upload/verification routes and admin workflow.</li>
+                <li>OpenCV preprocessing for better OCR quality.</li>
+                <li>Tesseract OCR for text extraction from scanned images.</li>
+                <li>MongoDB for document records, statuses, and audit-like tracking.</li>
+            </ul>
+            <p class="stack"><strong>Tech Stack:</strong> Python, Flask, OpenCV, Tesseract OCR, MongoDB</p>
+            <div class="project-actions">
+                <a class="btn" href="https://github.com/Vivek7892/AI-powered-document-verification-system-.git" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+            </div>
+        </section>
+
+        <section class="project" id="weather-app">
+            <h2>Weather Mobile Application</h2>
+            <p>A cross-platform Flutter app delivering real-time weather, hourly forecasts, and weekly forecast data.</p>
+            <p class="subhead"><strong>What it does</strong></p>
+            <ul>
+                <li>Fetches weather by current location and city search.</li>
+                <li>Shows current conditions, 24-hour forecast, and multi-day trend.</li>
+                <li>Handles loading/error states for smoother user experience.</li>
+            </ul>
+            <p class="subhead"><strong>How it is built</strong></p>
+            <ul>
+                <li>Flutter UI with responsive layouts and Material components.</li>
+                <li>REST API integration with async network calls and JSON parsing.</li>
+                <li>State management for data flow and UI synchronization.</li>
+                <li>Basic caching/offline strategy for better reliability.</li>
+            </ul>
+            <p class="stack"><strong>Tech Stack:</strong> Flutter, Dart, REST API, Provider/BLoC concepts, Geolocation</p>
+            <div class="project-actions">
+                <a class="btn" href="https://github.com/Vivek7892/Weather_app_Flutter.git" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'theme') {
+                document.documentElement.setAttribute('data-theme', event.newValue || 'light');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -79,22 +79,6 @@ if (hamburger && navMenu) {
     });
 }
 
-// Navbar scroll effect
-const navbar = document.getElementById('navbar');
-let lastScroll = 0;
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-        navbar.style.padding = '0.5rem 0';
-    } else {
-        navbar.style.padding = '1rem 0';
-    }
-    
-    lastScroll = currentScroll;
-});
-
 // Active Section Highlighting on Scroll
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.nav-link');
@@ -365,7 +349,7 @@ function displayRepos(repos) {
         <div class="repo-card">
             <h3>${repo.name}</h3>
             <p>${repo.description || 'No description available'}</p>
-            <a href="${repo.html_url}" target="_blank">View Repository →</a>
+            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">View Repository →</a>
         </div>
     `).join('');
 }
@@ -547,7 +531,7 @@ if (projectsSlider && projectsPrev && projectsNext) {
 
 
 // Animated Logo
-const logoTexts = ['Hello 👋', 'ನಮಸ್ಕಾರ 🙏', 'Vivek.dev'];
+const logoTexts = ['Hello👋|', 'ನಮಸ್ಕಾರ 👋|', 'Vivek.dev'];
 let logoIndex = 0;
 let logoCharIndex = 0;
 let isLogoDeleting = false;
