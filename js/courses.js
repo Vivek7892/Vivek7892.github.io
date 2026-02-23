@@ -1,4 +1,4 @@
-const RAZORPAY_KEY_ID = 'rzp_test_SJekY08naJfl5d';
+const RAZORPAY_KEY_ID = 'rzp_live_SJfFHqFqlyAoLX';
 const RAZORPAY_DISPLAY_NAME = 'Balaji Kirana Store';
 
 const SERVICES = [
