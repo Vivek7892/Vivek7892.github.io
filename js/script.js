@@ -384,8 +384,8 @@ function initJourneyAnimation() {
 // Typing Animation
 const typingTexts = [
     "Full-Stack Web Development",
-    "Mobile App Development",
     "Backend API Development",
+    "Mobile Applications"
 ];
 
 let textIndex = 0;

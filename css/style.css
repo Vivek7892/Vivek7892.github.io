@@ -396,24 +396,40 @@ img {
     }
 }
 
+/* Perfect circular theme toggle */
 .theme-toggle {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
+
+    flex: 0 0 40px;          /* prevents flexbox stretching */
+    aspect-ratio: 1 / 1;     /* forces square */
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     color: var(--text-primary);
-    border-radius: 50%;
-    transition: var(--transition);
     background: var(--bg-secondary);
     border: none;
+    border-radius: 50%;
+    padding: 0;
+
+    line-height: 1;
     cursor: pointer;
+    transition: all 0.25s ease;
 }
 
+/* center icon properly */
+.theme-toggle i{
+    font-size: 16px;
+    margin: 0;
+}
+
+/* hover effect */
 .theme-toggle:hover {
     background: var(--gradient);
-    color: white;
-    transform: translateY(-2px);
+    color: #fff;
+    transform: scale(1.1);
 }
 
 .hamburger {
