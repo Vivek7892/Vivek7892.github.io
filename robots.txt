@@ -1,8 +1,16 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vivek7892.github.io/
+Sitemap: https://vivek7892.github.io/sitemap.xml
+
 User-agent: *
 Disallow: /private/
 Disallow: /resume/
+
+# Allow search engines to crawl all pages
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
 
