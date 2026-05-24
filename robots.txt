@@ -1,11 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vivek7892.github.io/sitemap.xml
-
-User-agent: *
-Disallow: /private/
-Disallow: /resume/
+Sitemap: https://vivekv.me/sitemap.xml
 
 # Allow search engines to crawl all pages
 User-agent: Googlebot
@@ -14,3 +10,11 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Crawl delay
+Crawl-delay: 1

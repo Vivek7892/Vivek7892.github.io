@@ -3539,3 +3539,125 @@ textarea:focus-visible {
         display: none;
     }
 }
+
+/* Featured Projects Section */
+.featured-projects {
+    background: var(--bg-primary);
+    padding: 80px 0;
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.featured-card {
+    background: var(--bg-card);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.featured-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(102, 126, 234, 0.25);
+    border-color: var(--accent-primary);
+}
+
+.featured-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: var(--gradient);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.featured-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.featured-desc {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.featured-metrics {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.featured-metrics span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+}
+
+.featured-metrics i {
+    font-size: 1.1rem;
+}
+
+.featured-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.featured-tech span {
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--accent-primary);
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.featured-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.featured-links .btn {
+    flex: 1;
+    min-width: 140px;
+}
+
+@media (max-width: 768px) {
+    .featured-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .featured-card {
+        padding: 2rem;
+    }
+    
+    .featured-links {
+        flex-direction: column;
+    }
+    
+    .featured-links .btn {
+        width: 100%;
+    }
+}
