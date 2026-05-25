@@ -33,6 +33,13 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="css/style.css" as="style">
     <link rel="preload" href="images/profile.jpg" as="image">
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("WtbuTsmLOXl0kTugm"); // EmailJS public key
+        })();
+    </script>
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VNLZBC47JR"></script>
     <script>
@@ -656,18 +663,18 @@
                         </a>
                     </div>
                 </div>
-                <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-                    <input type="hidden" name="access_key" value="4a1077cc-ef87-422f-8d2b-3c4ecb8b670b">
+                <form class="contact-form" id="contactForm">
                     <div class="form-group">
-                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="text" name="from_name" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Your Email" required>
+                        <input type="email" name="from_email" placeholder="Your Email" required>
                     </div>
                     <div class="form-group">
                         <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
+                    <p id="formStatus" style="margin-top: 1rem; font-size: 0.9375rem;"></p>
                 </form>
             </div>
         </div>
@@ -762,6 +769,7 @@
         </div>
     </div>
     <script src="js/script.js" defer></script>
+    <script src="js/emailjs-config.js" defer></script>
     <script src="js/chatbot.js" defer></script>
 
 </body>

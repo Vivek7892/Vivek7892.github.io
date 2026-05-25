@@ -143,15 +143,16 @@ backToTop.addEventListener('click', () => {
     });
 });
 
-// Scroll animations
+// Scroll animations with Intersection Observer
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
+const fadeInObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
+            entry.target.classList.add('scroll-reveal');
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
         }
@@ -163,7 +164,20 @@ document.querySelectorAll('.skill-category, .project-card, .timeline-item, .cert
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
+    fadeInObserver.observe(el);
+});
+
+// Section title animation
+const titleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.section-title').forEach(title => {
+    titleObserver.observe(title);
 });
 
 // Skills Slider Navigation
@@ -181,58 +195,8 @@ if (skillsSlider && prevBtn && nextBtn) {
     });
 }
 
-// Contact Form with Web3Forms Integration
-const contactForm = document.querySelector('.contact-form');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const formData = new FormData(contactForm);
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const successMsg = document.getElementById('form-success');
-        
-        // Disable button and show loading
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-        
-        try {
-            const response = await fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                if (successMsg) {
-                    successMsg.style.display = 'block';
-                    successMsg.textContent = 'Message sent successfully!';
-                }
-                contactForm.reset();
-                setTimeout(() => {
-                    if (successMsg) successMsg.style.display = 'none';
-                }, 5000);
-            } else {
-                throw new Error('Form submission failed');
-            }
-        } catch (error) {
-            if (successMsg) {
-                successMsg.style.display = 'block';
-                successMsg.style.color = '#ef4444';
-                successMsg.textContent = 'Failed to send. Please try again.';
-            }
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Send Message';
-        }
-    });
-}
-
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
+// Contact Form - Now handled by emailjs-config.js
+// See EMAILJS_SETUP.md for configuration instructions
 
 // Typing effect for hero subtitle (optional enhancement)
 const heroSubtitle = document.querySelector('.hero-subtitle');
