@@ -1,101 +1,333 @@
-const pageData = {
+/* chatbot.js — portfolio assistant for vivekv.me */
+
+const BOT_DATA = {
   name: "Vivek V",
-  role: "Full Stack Developer & AI Engineer",
-  education: "B.E. in Computer Science (Data Science), CGPA: 8.37",
-  skills: ["Python","React.js", "Node.js", "MongoDB", "LangChain", "Flutter", "AWS", "Machine Learning"],
-  projects: [
-    "AI-Powered Student Assistant Chatbot - RAG-based chatbot using LangChain",
-    "DDoS Attack Detection System - ML-based network security",
-    "AI-Powered Document Verification System",
-    "Real-Time Weather Mobile Application - Flutter app"
+  role: "Software & Mobile Developer",
+  location: "Mysuru, India",
+  available: true,
+  education: {
+    degree: "BE in Computer Science and Data Science",
+    college: "ATME College of Engineering, Mysuru",
+    university: "Visvesvaraya Technological University",
+    cgpa: "8.57",
+    year: "2022 – 2026",
+    puc: "JSS PU College, SJCE Campus — 91.17% (2020–2022)"
+  },
+  experience: [
+    {
+      role: "Mobile Application Development Intern",
+      company: "Apsis Solutions",
+      period: "Feb 2025 – Present",
+      highlights: [
+        "Built cross-platform Flutter apps with clean UI and smooth navigation",
+        "Integrated REST APIs and connected mobile clients to backend services",
+        "Developed a Home Automation system with device-control logic",
+        "Built a real-time Weather Forecast app using OpenWeatherMap API",
+        "Used Git for version control and team collaboration"
+      ],
+      tech: "Flutter · Dart · REST APIs · Git"
+    },
+    {
+      role: "Data Engineering Training",
+      company: "IVIS Lab",
+      period: "2023",
+      highlights: [
+        "Processed and cleaned large datasets using Python and Pandas",
+        "Built data pipelines for structured data ingestion and transformation",
+        "Worked with research-grade datasets in a lab environment"
+      ],
+      tech: "Python · Pandas · Data Pipelines"
+    }
   ],
+  projects: [
+    {
+      name: "AI Student Assistant — MERN + RAG",
+      desc: "Full-stack AI chatbot with RAG pipeline. Students upload PDFs/DOCX and get context-aware answers via real-time Socket.IO chat. OTP-based auth, vector search with OpenSearch.",
+      tech: "React · Node.js · Express · MongoDB · LangChain · Socket.IO · Python · Flask",
+      github: "https://github.com/Vivek7892/AI-powered-Student-Chatbot-using-RAG-with-Langchain.git",
+      live: "https://ai-powered-student-chatbot-using-rag-i5r3.onrender.com"
+    },
+    {
+      name: "IoT Home Automation — Flutter",
+      desc: "Flutter app for managing smart home channels, devices, scenes, and user permissions. Full onboarding with QR-code and Wi-Fi setup, BLE communication.",
+      tech: "Flutter · Dart · BLE · Wi-Fi · mobile_scanner",
+      github: "https://github.com/Vivek7892"
+    },
+    {
+      name: "DDoS Detection in SDN with ML",
+      desc: "Random Forest classifier on 100K+ network traffic samples achieving 95%+ detection accuracy. Real-time classification pipeline and Flask monitoring dashboard.",
+      tech: "Python · Scikit-learn · Pandas · Flask",
+      github: "https://github.com/Vivek7892/DDoS-Detection-in-SDN-with-ML.git"
+    },
+    {
+      name: "AI Document Verification System",
+      desc: "OCR-based text extraction from identity documents with field comparison and mismatch detection. Flask app with admin dashboard and MongoDB audit tracking.",
+      tech: "Python · Flask · OpenCV · Tesseract OCR · MongoDB"
+    },
+    {
+      name: "Remindly — Reminder App",
+      desc: "Cross-platform Flutter reminder app with local push notifications, SQLite persistence, category-based organisation, and daily agenda view.",
+      tech: "Flutter · Dart · SQLite · Local Notifications"
+    },
+    {
+      name: "Weather App — Flutter",
+      desc: "Live weather and 7-day forecast using OpenWeatherMap API. GPS location detection, manual city search, handles offline states gracefully.",
+      tech: "Flutter · Dart · OpenWeatherMap API · Geolocator",
+      github: "https://github.com/Vivek7892/Weather_app_Flutter.git"
+    }
+  ],
+  skills: {
+    languages: "Python · JavaScript · Dart · C · SQL",
+    web: "Flask · Node.js · Express · REST APIs · HTML · CSS",
+    mobile: "Flutter · Dart · Firebase · BLE · Wi-Fi",
+    databases: "MongoDB · MySQL · SQLite · OpenSearch",
+    cloud: "Firebase · Firebase Auth · OAuth 2.0 · Firestore · Cloud Functions · GCP",
+    ai: "LangChain · RAG · Scikit-learn · Pandas · OpenCV",
+    tools: "Git · GitHub · Postman · Docker · Socket.IO · VS Code"
+  },
+  research: {
+    title: "A Review on RAG-Based Student Assistant Chatbot using LangChain",
+    journal: "EPRA IJRD, Vol. 10, Issue 8, Aug 2025",
+    doi: "https://doi.org/10.36713/epra23698"
+  },
+  certifications: ["Python Foundations — Infosys Springboard", "Data Engineering Training — IVIS Lab"],
   contact: {
-    phone:"7892409872",
     email: "vivekvvivekv70@gmail.com",
     linkedin: "https://linkedin.com/in/vivek-v-a0a41225a",
-    github: "https://github.com/Vivek7892"
+    github: "https://github.com/Vivek7892",
+    website: "https://vivekv.me"
   },
   links: {
     portfolio: "index.html",
     projects: "project.html",
     cv: "cv.html",
-    resume: "resume/VIVEK V.pdf"
+    resume: "resume/VIVEK V.pdf",
+    blog: "blog.html"
   }
 };
 
-function linkTag(href, label) {
+function a(href, label) {
   return `<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`;
 }
 
 function analyzeQuery(query) {
-  const q = query.toLowerCase();
-  
-  if (q.includes('name') || q.includes('who')) {
-    return { isHtml: false, message: `I'm ${pageData.name}, a ${pageData.role}.` };
-  }
-  if (q.includes('skill') || q.includes('technology') || q.includes('tech stack')) {
-    return { isHtml: false, message: `My skills include: ${pageData.skills.join(', ')}.` };
-  }
-  if (q.includes('project')) {
-    return {
-      isHtml: true,
-      message: `Featured projects:<br>${pageData.projects.map((p, i) => `${i + 1}. ${p}`).join('<br>')}<br><br>Open details: ${linkTag(pageData.links.projects, 'Project Details')}`
-    };
-  }
-  if (q.includes('education') || q.includes('study') || q.includes('degree')) {
-    return { isHtml: false, message: `Education: ${pageData.education}` };
-  }
-  if (q.includes('contact') || q.includes('email') || q.includes('reach') || q.includes('linkedin') || q.includes('github')) {
+  const q = query.toLowerCase().trim();
+
+  // Greetings
+  if (/^(hi|hello|hey|howdy|sup|yo)\b/.test(q)) {
     return {
       isHtml: true,
       message:
-        `Contact me:<br>` +
-        `Email: ${linkTag(`mailto:${pageData.contact.email}`, pageData.contact.email)}<br>` +
-        `LinkedIn: ${linkTag(pageData.contact.linkedin, 'View LinkedIn')}<br>` +
-        `GitHub: ${linkTag(pageData.contact.github, 'View GitHub')}`
+        `Hey! I'm ${BOT_DATA.name}'s portfolio assistant.<br>` +
+        `Ask me about <b>skills</b>, <b>projects</b>, <b>experience</b>, <b>education</b>, or <b>contact</b>.`
     };
   }
-  if (q.includes('cv') || q.includes('resume')) {
+
+  // Who / name / about
+  if (/\b(who|name|about|yourself|introduce)\b/.test(q)) {
     return {
       isHtml: true,
       message:
-        `You can view my CV and resume here:<br>` +
-        `${linkTag(pageData.links.cv, 'Open CV Page')}<br>` +
-        `${linkTag(pageData.links.resume, 'Download Resume PDF')}`
+        `<b>${BOT_DATA.name}</b> — ${BOT_DATA.role}<br>` +
+        `Based in ${BOT_DATA.location}. Currently interning at Apsis Solutions building Flutter apps and backend services.<br>` +
+        `${BOT_DATA.available ? '🟢 Available for full-time roles.' : ''}<br><br>` +
+        `${a(BOT_DATA.links.portfolio, 'Portfolio')} · ${a(BOT_DATA.links.cv, 'CV')} · ${a(BOT_DATA.contact.linkedin, 'LinkedIn')}`
     };
   }
-  if (q.includes('experience') || q.includes('work')) {
-    return { isHtml: false, message: "I have experience in Mobile App Development, Data Engineering at IVIS Lab, and Python certification from Infosys Springboard." };
-  }
-  if (q.includes('hello') || q.includes('hi') || q.includes('hey')) {
+
+  // Skills / tech stack
+  if (/\b(skill|tech|stack|language|framework|tool|know|use|work with)\b/.test(q)) {
+    const s = BOT_DATA.skills;
     return {
       isHtml: true,
       message:
-        `Hello! I'm ${pageData.name}.<br>` +
-        `Ask me about skills, projects, education, or contact details.<br><br>` +
-        `Quick links: ${linkTag(pageData.links.projects, 'Projects')} | ${linkTag(pageData.links.cv, 'CV')} | ${linkTag(pageData.links.portfolio, 'Portfolio')}`
+        `<b>Languages:</b> ${s.languages}<br>` +
+        `<b>Web/Backend:</b> ${s.web}<br>` +
+        `<b>Mobile:</b> ${s.mobile}<br>` +
+        `<b>Databases:</b> ${s.databases}<br>` +
+        `<b>Cloud/GCP:</b> ${s.cloud}<br>` +
+        `<b>AI/ML:</b> ${s.ai}<br>` +
+        `<b>Tools:</b> ${s.tools}`
     };
   }
-  
+
+  // Specific skill queries
+  if (/\bflutter\b/.test(q)) {
+    return { isHtml: false, message: "Flutter is Vivek's primary mobile framework. He's built IoT home automation, weather, and reminder apps with it — including production work at Apsis Solutions." };
+  }
+  if (/\bpython\b/.test(q)) {
+    return { isHtml: false, message: "Python is used across Vivek's AI/ML projects — LangChain RAG pipelines, Scikit-learn classifiers, Flask APIs, OpenCV document processing, and data engineering with Pandas." };
+  }
+  if (/\b(rag|langchain|ai|ml|machine learning)\b/.test(q)) {
+    return {
+      isHtml: true,
+      message:
+        `Vivek works with LangChain and RAG pipelines for AI projects. His AI Student Assistant uses document chunking, vector embeddings, and OpenSearch for semantic retrieval.<br><br>` +
+        `He also published a research paper on this: ${a(BOT_DATA.research.doi, 'DOI ↗')}`
+    };
+  }
+  if (/\b(firebase|gcp|cloud|google cloud)\b/.test(q)) {
+    return { isHtml: false, message: "Vivek uses Firebase for Flutter backends — Auth (OAuth 2.0, Google Sign-In), Firestore real-time sync, Cloud Functions, and Firebase Storage. He manages IAM, billing, and logs via Google Cloud Console." };
+  }
+
+  // Projects
+  if (/\bproject\b/.test(q)) {
+    const list = BOT_DATA.projects.map((p, i) =>
+      `${i + 1}. <b>${p.name}</b> — ${p.desc.split('.')[0]}.`
+    ).join('<br>');
+    return {
+      isHtml: true,
+      message: `${list}<br><br>${a(BOT_DATA.links.projects, 'View all projects ↗')}`
+    };
+  }
+
+  // Specific project lookups
+  if (/\b(student|chatbot|rag|mern)\b/.test(q)) {
+    const p = BOT_DATA.projects[0];
+    return {
+      isHtml: true,
+      message:
+        `<b>${p.name}</b><br>${p.desc}<br><br>` +
+        `<b>Stack:</b> ${p.tech}<br>` +
+        `${a(p.github, 'GitHub ↗')} · ${a(p.live, 'Live demo ↗')}`
+    };
+  }
+  if (/\b(iot|home|automation|smart)\b/.test(q)) {
+    const p = BOT_DATA.projects[1];
+    return {
+      isHtml: true,
+      message:
+        `<b>${p.name}</b><br>${p.desc}<br><br>` +
+        `<b>Stack:</b> ${p.tech}<br>` +
+        `${a(p.github, 'GitHub ↗')}`
+    };
+  }
+  if (/\b(ddos|network|sdn|security)\b/.test(q)) {
+    const p = BOT_DATA.projects[2];
+    return {
+      isHtml: true,
+      message:
+        `<b>${p.name}</b><br>${p.desc}<br><br>` +
+        `<b>Stack:</b> ${p.tech}<br>` +
+        `${a(p.github, 'GitHub ↗')}`
+    };
+  }
+  if (/\b(weather)\b/.test(q)) {
+    const p = BOT_DATA.projects[5];
+    return {
+      isHtml: true,
+      message:
+        `<b>${p.name}</b><br>${p.desc}<br><br>` +
+        `<b>Stack:</b> ${p.tech}<br>` +
+        `${a(p.github, 'GitHub ↗')}`
+    };
+  }
+
+  // Experience / work / internship
+  if (/\b(experience|work|intern|job|apsis|ivis)\b/.test(q)) {
+    const exp = BOT_DATA.experience;
+    return {
+      isHtml: true,
+      message:
+        `<b>${exp[0].role}</b> @ ${exp[0].company} (${exp[0].period})<br>` +
+        exp[0].highlights.slice(0, 3).map(h => `• ${h}`).join('<br>') +
+        `<br><i>${exp[0].tech}</i><br><br>` +
+        `<b>${exp[1].role}</b> @ ${exp[1].company} (${exp[1].period})<br>` +
+        `<i>${exp[1].tech}</i>`
+    };
+  }
+
+  // Education
+  if (/\b(education|study|degree|college|university|cgpa|grade|marks)\b/.test(q)) {
+    const e = BOT_DATA.education;
+    return {
+      isHtml: true,
+      message:
+        `<b>${e.degree}</b><br>` +
+        `${e.college} (${e.year})<br>` +
+        `CGPA: <b>${e.cgpa}</b> · ${e.university}<br><br>` +
+        `${e.puc}`
+    };
+  }
+
+  // Research / paper / publication
+  if (/\b(research|paper|publish|publication|journal|doi)\b/.test(q)) {
+    const r = BOT_DATA.research;
+    return {
+      isHtml: true,
+      message:
+        `<b>Published Research Paper</b><br>` +
+        `"${r.title}"<br>` +
+        `${r.journal}<br><br>` +
+        `${a(r.doi, 'Read paper ↗')}`
+    };
+  }
+
+  // Certifications
+  if (/\b(cert|certification|course|infosys)\b/.test(q)) {
+    return {
+      isHtml: false,
+      message: `Certifications:\n• ${BOT_DATA.certifications.join('\n• ')}`
+    };
+  }
+
+  // CV / resume
+  if (/\b(cv|resume|download)\b/.test(q)) {
+    return {
+      isHtml: true,
+      message:
+        `${a(BOT_DATA.links.cv, 'Open CV page ↗')}<br>` +
+        `${a(BOT_DATA.links.resume, 'Download Resume PDF ↓')}`
+    };
+  }
+
+  // Contact / email / linkedin / github
+  if (/\b(contact|email|reach|linkedin|github|hire|available)\b/.test(q)) {
+    const c = BOT_DATA.contact;
+    return {
+      isHtml: true,
+      message:
+        `${BOT_DATA.available ? '🟢 Available for opportunities.<br><br>' : ''}` +
+        `${a(`mailto:${c.email}`, c.email)}<br>` +
+        `${a(c.linkedin, 'LinkedIn ↗')}<br>` +
+        `${a(c.github, 'GitHub ↗')}`
+    };
+  }
+
+  // Blog
+  if (/\bblog\b/.test(q)) {
+    return {
+      isHtml: true,
+      message:
+        `Vivek writes about Firebase/GCP, RAG pipelines, Flutter IoT, DDoS detection, and agentic AI workflows.<br><br>` +
+        `${a(BOT_DATA.links.blog, 'Read the blog ↗')}`
+    };
+  }
+
+  // Fallback
   return {
     isHtml: true,
     message:
-      `I can help with skills, projects, education, experience, and contact details.<br>` +
-      `Try: "show projects", "contact", or "open cv".`
+      `I can answer questions about <b>skills</b>, <b>projects</b>, <b>experience</b>, <b>education</b>, <b>research</b>, or <b>contact</b>.<br>` +
+      `Try: "show projects", "what skills do you have", "contact info", or "open cv".`
   };
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const chatBtn = document.getElementById('chatBtn');
-  const chatWidget = document.getElementById('chatWidget');
-  const closeChat = document.getElementById('closeChat');
-  const chatInput = document.getElementById('chatInput');
-  const sendBtn = document.getElementById('sendBtn');
+  const chatBtn      = document.getElementById('chatBtn');
+  const chatWidget   = document.getElementById('chatWidget');
+  const closeChat    = document.getElementById('closeChat');
+  const chatInput    = document.getElementById('chatInput');
+  const sendBtn      = document.getElementById('sendBtn');
   const chatMessages = document.getElementById('chatMessages');
+  const quickActions = document.getElementById('chatQuickActions');
+
+  if (!chatBtn) return;
 
   chatBtn.addEventListener('click', () => {
     chatWidget.classList.add('active');
     chatBtn.style.display = 'none';
+    chatInput.focus();
   });
 
   closeChat.addEventListener('click', () => {
@@ -103,56 +335,64 @@ document.addEventListener('DOMContentLoaded', () => {
     chatBtn.style.display = 'flex';
   });
 
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && chatWidget.classList.contains('active')) {
+      chatWidget.classList.remove('active');
+      chatBtn.style.display = 'flex';
+    }
+  });
+
   function addMessage(text, isUser, isHtml = false) {
     const msg = document.createElement('div');
     msg.className = `chat-message ${isUser ? 'user' : 'bot'}`;
-    if (isHtml && !isUser) {
-      msg.innerHTML = text;
-    } else {
-      msg.textContent = text;
-    }
+    if (isHtml && !isUser) msg.innerHTML = text;
+    else msg.textContent = text;
     chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return msg;
+  }
+
+  function showTyping() {
+    const t = document.createElement('div');
+    t.className = 'chat-typing';
+    t.id = 'chatTyping';
+    t.innerHTML = '<span></span><span></span><span></span>';
+    chatMessages.appendChild(t);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
-  function addQuickActions() {
-    const wrap = document.createElement('div');
-    wrap.className = 'chat-quick-actions';
-    wrap.innerHTML = `
-      <a class="quick-link" href="project.html" target="_blank" rel="noopener noreferrer">Projects</a>
-      <a class="quick-link" href="cv.html" target="_blank" rel="noopener noreferrer">CV</a>
-      <a class="quick-link" href="https://github.com/Vivek7892" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a class="quick-link" href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a class="quick-link" href="mailto:vivekvvivekv70@gmail.com">Email</a>
-    `;
-    chatMessages.appendChild(wrap);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+  function removeTyping() {
+    const t = document.getElementById('chatTyping');
+    if (t) t.remove();
   }
 
   function handleSend() {
     const query = chatInput.value.trim();
     if (!query) return;
-    
     addMessage(query, true);
     chatInput.value = '';
-    
+    if (quickActions) quickActions.style.display = 'none';
+    showTyping();
     setTimeout(() => {
-      const response = analyzeQuery(query);
-      addMessage(response.message, false, response.isHtml);
-    }, 500);
+      removeTyping();
+      const res = analyzeQuery(query);
+      addMessage(res.message, false, res.isHtml);
+    }, 480);
   }
 
   sendBtn.addEventListener('click', handleSend);
-  chatInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') handleSend();
-  });
+  chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleSend(); });
 
-  addMessage("Hi! I'm your portfolio assistant.", false);
-  addMessage(
-    `You can ask about skills, projects, experience, education, CV, and contact details.<br>` +
-    `Or use these direct links:`,
-    false,
-    true
-  );
-  addQuickActions();
+  // Quick chip clicks
+  if (quickActions) {
+    quickActions.querySelectorAll('.quick-chip[data-query]').forEach(chip => {
+      chip.addEventListener('click', () => {
+        chatInput.value = chip.dataset.query;
+        handleSend();
+      });
+    });
+  }
+
+  // Welcome message
+  addMessage(`Hi! Ask me anything about ${BOT_DATA.name}'s work, skills, or projects.`, false, false);
 });

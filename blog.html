@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vivek V — Blog. Notes on projects, learnings, and development.">
+  <meta property="og:title" content="Blog — Vivek V">
+  <meta property="og:description" content="Notes on Firebase, RAG pipelines, Flutter IoT, DDoS detection, and agentic AI workflows.">
+  <meta property="og:image" content="https://vivekv.me/images/profile.jpg">
+  <meta property="og:url" content="https://vivekv.me/blog.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog — Vivek V">
+  <meta name="twitter:image" content="https://vivekv.me/images/profile.jpg">
+  <title>Blog — Vivek V</title>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="canonical" href="https://vivekv.me/blog.html">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/blog.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+</head>
+<body>
+
+  <header class="blog-header">
+    <nav class="blog-nav">
+      <a href="index.html" class="blog-back">&larr; vivekv.me</a>
+      <span class="blog-nav-title">## Blog</span>
+      <button id="themeToggle" aria-label="Toggle theme">&#9680;</button>
+    </nav>
+  </header>
+
+  <main class="blog-main">
+
+    <div class="blog-intro">
+      <p>Notes on building projects, technical decisions, and things I learned along the way.</p>
+    </div>
+
+    <hr>
+
+    <!-- ================================================ -->
+    <!-- POST 0 — Firebase & Google Cloud Console         -->
+    <!-- ================================================ -->
+    <article class="blog-article" id="firebase-gcloud">
+      <header class="blog-article-header">
+        <p class="blog-date">August 2025</p>
+        <h2>Firebase &amp; Google Cloud Console — What I Actually Used</h2>
+        <div class="blog-tags">
+          <a href="https://firebase.google.com/docs" target="_blank" rel="noopener noreferrer">Firebase</a>
+          <a href="https://firebase.google.com/docs/firestore" target="_blank" rel="noopener noreferrer">Firestore</a>
+          <a href="https://firebase.google.com/docs/auth" target="_blank" rel="noopener noreferrer">Firebase Auth</a>
+          <a href="https://firebase.google.com/docs/functions" target="_blank" rel="noopener noreferrer">Cloud Functions</a>
+          <a href="https://console.cloud.google.com" target="_blank" rel="noopener noreferrer">Google Cloud Console</a>
+          <a href="https://flutter.dev/docs" target="_blank" rel="noopener noreferrer">Flutter</a>
+        </div>
+      </header>
+
+      <section class="blog-section">
+        <h3>### Overview</h3>
+        <p>
+          Firebase is Google's mobile and web application platform built on top of Google Cloud infrastructure. While the Firebase console gives you a friendly UI for common tasks, the real power — and the real complexity — lives in the <strong>Google Cloud Console</strong> behind it. This post covers what I actually used, what surprised me, and what I'd do differently.
+        </p>
+        <div class="highlight">
+          Firebase is not a separate product from Google Cloud — it is a curated layer on top of GCP. Every Firebase project is a Google Cloud project. You can manage the same resources from both consoles.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Firebase Authentication</h3>
+        <p>
+          <a href="https://firebase.google.com/docs/auth" target="_blank" rel="noopener noreferrer">Firebase Authentication</a> was the first thing I integrated. It handles email/password sign-up, Google Sign-In, and anonymous auth out of the box. In Flutter, the <a href="https://pub.dev/packages/firebase_auth" target="_blank" rel="noopener noreferrer"><code>firebase_auth</code></a> package wraps the SDK cleanly — <code>FirebaseAuth.instance.signInWithEmailAndPassword()</code> returns a <code>UserCredential</code> with the user's UID, which becomes the key for all Firestore documents.
+        </p>
+        <div class="highlight">
+          Key insight: always use the Firebase UID as the primary key for user documents in Firestore. Never store a separate user ID — the UID is stable, unique, and already authenticated.
+        </div>
+        <p>
+          One gotcha: email verification is not enforced by default. I added a check on the <code>User.emailVerified</code> flag after sign-in and redirected unverified users to a verification screen. Firebase sends the verification email via <code>user.sendEmailVerification()</code> — no SMTP setup needed.
+        </p>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Cloud Firestore</h3>
+        <p>
+          <a href="https://firebase.google.com/docs/firestore" target="_blank" rel="noopener noreferrer">Cloud Firestore</a> is a NoSQL document database with real-time sync. I used it to store device states, scene configurations, and user preferences in the IoT app. The data model is a collection of documents — each document is a map of key-value pairs, and documents can contain subcollections.
+        </p>
+        <p>
+          The real-time listener is the killer feature. <code>FirebaseFirestore.instance.collection('devices').doc(deviceId).snapshots()</code> returns a <code>Stream</code> that emits a new snapshot every time the document changes — anywhere in the world. In Flutter, wrapping this in a <code>StreamBuilder</code> gives you a UI that updates instantly when a device state changes.
+        </p>
+        <div class="highlight">
+          Firestore security rules are the most important thing to get right. The default rules allow anyone to read and write — never ship with those. Write rules that check <code>request.auth.uid == resource.data.userId</code> for every user-owned document.
+        </div>
+        <p>
+          Firestore pricing is per read/write/delete operation, not per GB. A single <code>snapshots()</code> listener counts as one read per update. For a device that updates every second, that is 86,400 reads per day per listener — plan accordingly.
+        </p>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Cloud Functions</h3>
+        <p>
+          <a href="https://firebase.google.com/docs/functions" target="_blank" rel="noopener noreferrer">Cloud Functions for Firebase</a> are serverless Node.js functions that run in response to Firebase events or HTTP requests. I used them for two things: sending push notifications when a device state changed, and cleaning up orphaned documents when a user deleted their account.
+        </p>
+        <p>
+          The <code>onDocumentUpdated</code> trigger fires whenever a Firestore document changes. The function receives the before and after snapshots, so you can diff the state and decide whether to send a notification. Notifications go through <a href="https://firebase.google.com/docs/cloud-messaging" target="_blank" rel="noopener noreferrer">Firebase Cloud Messaging (FCM)</a> using the Admin SDK.
+        </p>
+        <div class="highlight">
+          Cloud Functions cold starts are real. The first invocation after a period of inactivity can take 2–5 seconds. For latency-sensitive operations, keep functions warm with a scheduled ping or use minimum instance count (costs money).
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Google Cloud Console — What's Behind Firebase</h3>
+        <p>
+          The <a href="https://console.cloud.google.com" target="_blank" rel="noopener noreferrer">Google Cloud Console</a> exposes everything Firebase hides. Things I needed it for:
+        </p>
+        <ul>
+          <li><strong>IAM &amp; Service Accounts</strong> — creating service account keys for the Admin SDK in Cloud Functions and for local development</li>
+          <li><strong>Cloud Storage</strong> — Firebase Storage is backed by <a href="https://cloud.google.com/storage/docs" target="_blank" rel="noopener noreferrer">Google Cloud Storage</a>; the GCC gives you bucket-level controls, lifecycle rules, and CORS configuration that the Firebase console doesn't expose</li>
+          <li><strong>Logs Explorer</strong> — Cloud Functions logs appear here with full structured logging; far more powerful than the Firebase console's log viewer</li>
+          <li><strong>Quotas &amp; Billing</strong> — setting budget alerts so a runaway listener doesn't generate a surprise bill</li>
+          <li><strong>APIs &amp; Services</strong> — enabling APIs like Cloud Vision, Cloud Translation, or Vertex AI that you want to call from Cloud Functions</li>
+        </ul>
+        <div class="highlight">
+          Set a billing budget alert immediately after creating a Firebase project. Go to GCC → Billing → Budgets &amp; Alerts → Create Budget. Set a threshold at $5 and $20. Firebase's free tier is generous but easy to exceed with real-time listeners at scale.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Flutter Integration</h3>
+        <p>
+          The <a href="https://firebase.flutter.dev" target="_blank" rel="noopener noreferrer">FlutterFire</a> suite of packages makes Firebase integration straightforward. Initialise with <code>Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)</code> in <code>main()</code> — the options are auto-generated by the <code>flutterfire configure</code> CLI command, which downloads the <code>google-services.json</code> and <code>GoogleService-Info.plist</code> and generates a Dart config file.
+        </p>
+        <div class="highlight">
+          Never commit <code>google-services.json</code> or <code>GoogleService-Info.plist</code> to a public repository. They contain your Firebase project's API keys. Add them to <code>.gitignore</code> and use environment-specific files for different build flavours.
+        </div>
+      </section>
+    </article>
+
+    <hr>
+
+    <!-- ================================================ -->
+    <!-- POST 1 — AI Student Assistant                    -->
+    <!-- ================================================ -->
+    <article class="blog-article" id="ai-student-assistant">
+      <header class="blog-article-header">
+        <p class="blog-date">July 2025</p>
+        <h2>Building an AI Student Assistant with MERN + RAG</h2>
+        <div class="blog-tags">
+          <a href="https://react.dev" target="_blank" rel="noopener noreferrer">React 18</a>
+          <a href="https://nodejs.org/en/docs" target="_blank" rel="noopener noreferrer">Node.js</a>
+          <a href="https://expressjs.com" target="_blank" rel="noopener noreferrer">Express</a>
+          <a href="https://www.mongodb.com/docs" target="_blank" rel="noopener noreferrer">MongoDB</a>
+          <a href="https://socket.io/docs/v4" target="_blank" rel="noopener noreferrer">Socket.IO</a>
+          <a href="https://python.langchain.com/docs/get_started/introduction" target="_blank" rel="noopener noreferrer">LangChain</a>
+          <a href="https://docs.aws.amazon.com/bedrock" target="_blank" rel="noopener noreferrer">AWS Bedrock</a>
+          <a href="https://docs.aws.amazon.com/cognito" target="_blank" rel="noopener noreferrer">AWS Cognito</a>
+          <a href="https://opensearch.org/docs/latest" target="_blank" rel="noopener noreferrer">OpenSearch</a>
+        </div>
+      </header>
+
+      <section class="blog-section">
+        <h3>### Overview</h3>
+        <p>
+          The AI Student Assistant lets students upload course documents and ask questions against them in real time. Instead of searching through PDFs manually, you ask a question and the system retrieves the most relevant passages and generates a contextual answer using a RAG pipeline.
+        </p>
+        <div class="highlight">
+          The core architecture: documents are chunked → embedded → stored in a vector DB. At query time, the question is embedded, top-k chunks are retrieved by similarity, and those chunks are injected into the LLM prompt as context.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### The RAG Pipeline</h3>
+        <p>
+          When a user uploads a document, the backend splits it into chunks using <a href="https://python.langchain.com/docs/modules/data_connection/document_transformers" target="_blank" rel="noopener noreferrer">LangChain's text splitters</a>, generates embeddings via <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html" target="_blank" rel="noopener noreferrer">Bedrock's Titan Embeddings</a>, and indexes them into <a href="https://opensearch.org/docs/latest/search-plugins/knn/index" target="_blank" rel="noopener noreferrer">OpenSearch k-NN</a>. Each chunk is stored with metadata — document ID, user ID, page number, and chunk index.
+        </p>
+        <div class="highlight">
+          Chunking strategy matters enormously. I settled on <strong>512-token chunks with 64-token overlap</strong> after testing. Too-small chunks lose context; too-large chunks exceed the LLM's context window and dilute relevance scores.
+        </div>
+        <p>
+          At query time, the user's question is embedded using the same model, and a k-NN search retrieves the top-5 most semantically similar chunks. These are injected into a prompt template and sent to <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-ids.html" target="_blank" rel="noopener noreferrer">Claude via Bedrock's InvokeModelWithResponseStream API</a>. The response streams back through <a href="https://socket.io/docs/v4" target="_blank" rel="noopener noreferrer">Socket.IO</a> token-by-token.
+        </p>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Authentication with AWS Cognito</h3>
+        <p>
+          User authentication uses <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html" target="_blank" rel="noopener noreferrer">AWS Cognito</a> with email + OTP verification. JWTs from Cognito are validated on the Express backend using <a href="https://github.com/awslabs/aws-jwt-verify" target="_blank" rel="noopener noreferrer"><code>aws-jwt-verify</code></a>, which checks the token signature against Cognito's JWKS endpoint.
+        </p>
+        <div class="highlight">
+          Cognito's hosted UI is convenient but inflexible. Building a custom auth UI with the Amplify SDK gives full UX control while keeping Cognito's security guarantees — token rotation, MFA, and brute-force protection are all handled server-side.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Real-time Chat with Socket.IO</h3>
+        <p>
+          Each chat session is a <a href="https://socket.io/docs/v4/rooms" target="_blank" rel="noopener noreferrer">Socket.IO room</a> keyed by session ID. The server streams Bedrock's response token-by-token using <code>InvokeModelWithResponseStream</code>, emitting each token as a <code>token</code> event. Chat history is persisted in <a href="https://www.mongodb.com/docs/manual/core/index-ttl" target="_blank" rel="noopener noreferrer">MongoDB with a TTL index</a> — sessions expire after 30 days.
+        </p>
+        <div class="highlight">
+          MongoDB TTL indexes are the cleanest way to auto-expire documents. Set <code>expireAfterSeconds: 2592000</code> on a <code>createdAt</code> field and MongoDB's background thread deletes expired documents automatically — no cron job needed.
+        </div>
+      </section>
+    </article>
+
+    <hr>
+
+    <!-- ================================================ -->
+    <!-- POST 2 — IoT Flutter                             -->
+    <!-- ================================================ -->
+    <article class="blog-article" id="iot-flutter">
+      <header class="blog-article-header">
+        <p class="blog-date">June 2025</p>
+        <h2>IoT Home Automation with Flutter — BLE &amp; Wi-Fi</h2>
+        <div class="blog-tags">
+          <a href="https://flutter.dev/docs" target="_blank" rel="noopener noreferrer">Flutter</a>
+          <a href="https://dart.dev/guides" target="_blank" rel="noopener noreferrer">Dart</a>
+          <a href="https://pub.dev/packages/flutter_blue_plus" target="_blank" rel="noopener noreferrer">flutter_blue_plus</a>
+          <a href="https://pub.dev/packages/mobile_scanner" target="_blank" rel="noopener noreferrer">mobile_scanner</a>
+          <a href="https://pub.dev/packages/permission_handler" target="_blank" rel="noopener noreferrer">permission_handler</a>
+          <a href="https://firebase.google.com/docs/firestore" target="_blank" rel="noopener noreferrer">Firestore</a>
+        </div>
+      </header>
+
+      <section class="blog-section">
+        <h3>### Overview</h3>
+        <p>
+          A Flutter mobile application for managing smart home channels, devices, and scenes. The app communicates with IoT hardware over BLE for initial pairing and Wi-Fi for remote control and state sync. Built as part of my internship at Apsis Solutions.
+        </p>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Onboarding Flow</h3>
+        <p>
+          The onboarding flow has two paths: QR code and Wi-Fi. In the QR path, the user scans a QR code on the device using <a href="https://pub.dev/packages/mobile_scanner" target="_blank" rel="noopener noreferrer"><code>mobile_scanner</code></a>, which encodes the device's BLE MAC address and a pairing token. The app connects over BLE, sends the Wi-Fi credentials, and the device joins the home network.
+        </p>
+        <div class="highlight">
+          Android 12+ requires <code>BLUETOOTH_SCAN</code>, <code>BLUETOOTH_CONNECT</code>, and <code>ACCESS_FINE_LOCATION</code> for BLE operations. Request all three before any BLE call — missing even one causes a silent failure on some devices.
+        </div>
+        <p>
+          The <a href="https://pub.dev/packages/permission_handler" target="_blank" rel="noopener noreferrer"><code>permission_handler</code></a> package made this manageable. I check and request permissions before any BLE operation and show a rationale dialog if the user denies.
+        </p>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Device &amp; Scene Management</h3>
+        <p>
+          Devices are Dart model classes with a type enum (switch, dimmer, sensor) and a state map. Scenes are stored locally as JSON and synced to <a href="https://firebase.google.com/docs/firestore" target="_blank" rel="noopener noreferrer">Firestore</a> on save. Activating a scene sends each device its target state in parallel using <code>Future.wait</code>.
+        </p>
+        <div class="highlight">
+          <code>Future.wait</code> runs all futures concurrently and waits for all to complete. For activating a scene with 10 devices, this is ~10x faster than awaiting each device sequentially.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### BLE Reliability</h3>
+        <p>
+          BLE on Android is unreliable. Connection drops, GATT errors, and MTU negotiation failures are common. I added an exponential backoff retry loop for GATT operations and a connection watchdog that reconnects automatically if the device goes silent for more than 5 seconds.
+        </p>
+        <div class="highlight">
+          Never assume a BLE connection is stable. Always implement a reconnection strategy. The pattern: on any GATT error, wait <code>2^attempt * 100ms</code>, then retry up to 5 times before surfacing an error to the user.
+        </div>
+      </section>
+    </article>
+
+    <hr>
+
+    <!-- ================================================ -->
+    <!-- POST 3 — DDoS Detection                          -->
+    <!-- ================================================ -->
+    <article class="blog-article" id="ddos-ml">
+      <header class="blog-article-header">
+        <p class="blog-date">May 2025</p>
+        <h2>DDoS Detection in SDN using Machine Learning</h2>
+        <div class="blog-tags">
+          <a href="https://docs.python.org/3" target="_blank" rel="noopener noreferrer">Python</a>
+          <a href="https://scikit-learn.org/stable/documentation.html" target="_blank" rel="noopener noreferrer">Scikit-learn</a>
+          <a href="https://flask.palletsprojects.com" target="_blank" rel="noopener noreferrer">Flask</a>
+          <a href="https://pandas.pydata.org/docs" target="_blank" rel="noopener noreferrer">Pandas</a>
+          <a href="https://numpy.org/doc" target="_blank" rel="noopener noreferrer">NumPy</a>
+        </div>
+      </header>
+
+      <section class="blog-section">
+        <h3>### Overview</h3>
+        <p>
+          A machine learning system for detecting DDoS attacks in Software Defined Networks. SDN separates the control plane from the data plane, making it possible to collect fine-grained flow statistics from the controller — exactly the data ML models need.
+        </p>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Dataset &amp; Feature Selection</h3>
+        <p>
+          The dataset contains 100K+ network flow records labelled as normal or attack traffic. Each record has 23 features extracted from OpenFlow flow statistics: packet count, byte count, flow duration, inter-arrival time, packet rate, byte rate, and derived ratios.
+        </p>
+        <div class="highlight">
+          Feature selection using <a href="https://scikit-learn.org/stable/modules/feature_selection.html" target="_blank" rel="noopener noreferrer">Scikit-learn's feature importances</a> reduced 23 features to 12 while retaining 94% of predictive power. Fewer features = faster inference = lower latency in the real-time pipeline.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Model Training</h3>
+        <p>
+          Compared Logistic Regression, Decision Tree, <a href="https://scikit-learn.org/stable/modules/ensemble.html#forest" target="_blank" rel="noopener noreferrer">Random Forest</a>, and Gradient Boosting. Random Forest gave the best results: <strong>95.8% accuracy, 94.2% precision, 96.1% recall</strong> on the held-out test set. Trained with 100 estimators, max depth 20, and class-weight balancing.
+        </p>
+        <div class="highlight">
+          The model is serialised with <a href="https://joblib.readthedocs.io" target="_blank" rel="noopener noreferrer"><code>joblib</code></a> and loaded at Flask startup. Inference takes ~2ms per flow record on a standard CPU — fast enough for real-time classification at the SDN controller.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Research Publication</h3>
+        <p>
+          Published in EPRA International Journal of Research and Development (IJRD), Vol. 10, Issue 8, August 2025. <a href="https://doi.org/10.36713/epra23698" target="_blank" rel="noopener noreferrer">DOI: 10.36713/epra23698 &#8599;</a>
+        </p>
+      </section>
+    </article>
+
+    <hr>
+
+    <!-- ================================================ -->
+    <!-- POST 4 — Flutter Apps                            -->
+    <!-- ================================================ -->
+    <article class="blog-article" id="flutter-apps">
+      <header class="blog-article-header">
+        <p class="blog-date">April 2025</p>
+        <h2>What I Learned Building Remindly &amp; a Weather App in Flutter</h2>
+        <div class="blog-tags">
+          <a href="https://flutter.dev/docs" target="_blank" rel="noopener noreferrer">Flutter</a>
+          <a href="https://dart.dev/guides" target="_blank" rel="noopener noreferrer">Dart</a>
+          <a href="https://pub.dev/packages/sqflite" target="_blank" rel="noopener noreferrer">sqflite</a>
+          <a href="https://pub.dev/packages/flutter_local_notifications" target="_blank" rel="noopener noreferrer">flutter_local_notifications</a>
+          <a href="https://pub.dev/packages/provider" target="_blank" rel="noopener noreferrer">Provider</a>
+          <a href="https://openweathermap.org/api" target="_blank" rel="noopener noreferrer">OpenWeatherMap API</a>
+          <a href="https://pub.dev/packages/geolocator" target="_blank" rel="noopener noreferrer">geolocator</a>
+        </div>
+      </header>
+
+      <section class="blog-section">
+        <h3>### Remindly — Reminder App</h3>
+        <p>
+          Remindly stores reminders in <a href="https://pub.dev/packages/sqflite" target="_blank" rel="noopener noreferrer">SQLite via sqflite</a> and schedules them as local notifications using <a href="https://pub.dev/packages/flutter_local_notifications" target="_blank" rel="noopener noreferrer"><code>flutter_local_notifications</code></a>. State management uses the <a href="https://pub.dev/packages/provider" target="_blank" rel="noopener noreferrer">Provider pattern</a> — a <code>ReminderProvider</code> wraps the SQLite repository and notifies listeners on any CRUD operation.
+        </p>
+        <div class="highlight">
+          Android 12+ requires <code>SCHEDULE_EXACT_ALARM</code> for exact alarms. Always add a fallback to inexact alarms — they fire within a 15-minute window, which is acceptable for most reminder use cases and avoids a hard permission denial blocking the feature entirely.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Weather App</h3>
+        <p>
+          Fetches current conditions and a 7-day forecast from the <a href="https://openweathermap.org/api" target="_blank" rel="noopener noreferrer">OpenWeatherMap API</a>. Uses <a href="https://pub.dev/packages/geolocator" target="_blank" rel="noopener noreferrer"><code>geolocator</code></a> for GPS coordinates and <a href="https://pub.dev/packages/json_serializable" target="_blank" rel="noopener noreferrer"><code>json_serializable</code></a> for parsing API responses into typed Dart models.
+        </p>
+        <div class="highlight">
+          Always cache the last-fetched API response locally. Show stale data immediately on launch while fresh data loads in the background. A loading spinner on every launch feels slow even on fast connections — stale-while-revalidate is the right pattern here.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Flutter Patterns I Settled On</h3>
+        <p>
+          After several Flutter projects, these are my defaults: <a href="https://pub.dev/packages/provider" target="_blank" rel="noopener noreferrer">Provider</a> for state management, repository pattern for data access, named routes in <code>main.dart</code>, and <code>const</code> constructors everywhere possible.
+        </p>
+        <div class="highlight">
+          <code>const</code> constructors are not just style — Flutter uses them to skip rebuilding widgets whose inputs haven't changed. A widget tree full of <code>const</code> constructors rebuilds significantly less on state changes.
+        </div>
+      </section>
+    </article>
+
+    <hr>
+
+    <!-- ================================================ -->
+    <!-- POST 5 — Apsis Internship                        -->
+    <!-- ================================================ -->
+    <article class="blog-article" id="apsis-internship">
+      <header class="blog-article-header">
+        <p class="blog-date">March 2026</p>
+        <h2>What I Learned at Apsis Solutions — My First Real Internship</h2>
+        <div class="blog-tags">
+          <a href="https://flutter.dev" target="_blank" rel="noopener noreferrer">Flutter</a>
+          <a href="https://dart.dev/guides" target="_blank" rel="noopener noreferrer">Dart</a>
+          <a href="https://restfulapi.net" target="_blank" rel="noopener noreferrer">REST APIs</a>
+          <a href="https://firebase.google.com/docs" target="_blank" rel="noopener noreferrer">Firebase</a>
+          <a href="https://git-scm.com/doc" target="_blank" rel="noopener noreferrer">Git</a>
+        </div>
+      </header>
+
+      <section class="blog-section">
+        <h3>### The Gap Between Side Projects and Real Software</h3>
+        <p>
+          Side projects are forgiving. You set the requirements, you decide when it's done, and nobody is waiting on your pull request. Professional software is different. At <a href="https://apsissolutions.com" target="_blank" rel="noopener noreferrer">Apsis Solutions</a> I learned what it actually means to write code that other people depend on — code that has to work on devices you've never touched, in conditions you didn't anticipate, for users who won't file a bug report, they'll just stop using the app.
+        </p>
+        <div class="highlight">
+          The biggest shift: in a side project you write code until it works. In a professional setting you write code until it works, handles every edge case, is readable by your teammates, and doesn't break anything that was already working.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Flutter in Production</h3>
+        <p>
+          I had built Flutter apps before the internship, but building them inside a product team is a different experience. The codebase had conventions — naming patterns, folder structure, widget decomposition rules — and understanding why those conventions existed took time. A widget that seems fine in isolation can cause performance problems when it's nested inside a list that rebuilds frequently.
+        </p>
+        <p>
+          I learned to think about widget trees differently. Every <code>setState</code> call triggers a rebuild of the widget and all its descendants. Keeping state as low in the tree as possible, using <code>const</code> constructors, and splitting large widgets into smaller ones are not style preferences — they are performance decisions.
+        </p>
+        <div class="highlight">
+          Use Flutter DevTools' widget rebuild tracker before optimising. It shows exactly which widgets are rebuilding on each frame. I found a list item widget rebuilding 60 times per second because a parent was listening to a stream it didn't need to.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### REST API Integration Patterns</h3>
+        <p>
+          Integrating REST APIs in a side project means calling <code>http.get()</code> and parsing the JSON. In production it means handling every failure mode: network timeouts, 4xx errors, 5xx errors, malformed responses, and the case where the API returns 200 but the data is empty or null. I wrote a generic API client wrapper that handles all of these consistently and surfaces typed errors to the UI layer.
+        </p>
+        <div class="highlight">
+          Never let raw API errors reach the UI. Map them to domain errors at the repository layer. The UI should only know about states: loading, success, and error — not about HTTP status codes or JSON parse exceptions.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Git in a Team</h3>
+        <p>
+          I had used Git before but mostly as a backup tool — commit, push, done. Working in a team meant branching strategies, pull requests, code review, and merge conflicts. The discipline of writing clear commit messages, keeping PRs small and focused, and reviewing others' code carefully are skills that don't come from solo projects.
+        </p>
+        <p>
+          The most valuable thing I learned about code review: it is not about finding bugs. It is about sharing knowledge. When a reviewer asks why you did something a certain way, the answer either teaches them something or teaches you something. Either outcome is good.
+        </p>
+      </section>
+
+      <section class="blog-section">
+        <h3>### What I'd Tell Myself Before Starting</h3>
+        <p>
+          Read the existing code before writing new code. Understand the patterns in use before introducing new ones. Ask questions early — a 5-minute conversation saves hours of going in the wrong direction. And write tests, even simple ones, because they are the only way to know that a change you made three weeks later didn't break something you wrote today.
+        </p>
+      </section>
+    </article>
+
+    <hr>
+
+    <!-- ================================================ -->
+    <!-- POST 6 — Agentic AI                              -->
+    <!-- ================================================ -->
+    <article class="blog-article" id="agentic-ai">
+      <header class="blog-article-header">
+        <p class="blog-date">February 2026</p>
+        <h2>Agentic AI in My Dev Workflow — What Actually Works</h2>
+        <div class="blog-tags">
+          <a href="https://aws.amazon.com/q/developer/" target="_blank" rel="noopener noreferrer">Amazon Q Developer</a>
+          <a href="https://www.anthropic.com/claude" target="_blank" rel="noopener noreferrer">Claude</a>
+          <a href="https://platform.openai.com/docs/guides/code" target="_blank" rel="noopener noreferrer">OpenAI Codex</a>
+          <a href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer">GitHub Copilot</a>
+        </div>
+      </header>
+
+      <section class="blog-section">
+        <h3>### How I Actually Use These Tools</h3>
+        <p>
+          I use four AI tools regularly and each has a distinct role. <a href="https://aws.amazon.com/q/developer/" target="_blank" rel="noopener noreferrer">Amazon Q Developer</a> lives in my IDE and handles inline completions, multi-file edits, and explaining unfamiliar code. <a href="https://www.anthropic.com/claude" target="_blank" rel="noopener noreferrer">Claude</a> is my thinking partner for architecture decisions, code review, and writing documentation. <a href="https://platform.openai.com/docs/guides/code" target="_blank" rel="noopener noreferrer">OpenAI Codex</a> and <a href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer">GitHub Copilot</a> handle boilerplate generation and test scaffolding.
+        </p>
+        <div class="highlight">
+          The key insight: these tools are not interchangeable. Each has a different strength. Using the right tool for the right task is itself a skill that takes time to develop.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Amazon Q Developer — IDE-Native Intelligence</h3>
+        <p>
+          Amazon Q Developer is the tool I use most because it's where I spend most of my time — inside the editor. The inline completions are context-aware in a way that generic autocomplete isn't. It reads the surrounding code, understands the patterns in use, and suggests completions that fit the existing style rather than generic boilerplate.
+        </p>
+        <p>
+          The multi-file edit capability changed how I approach refactoring. Instead of manually updating every file affected by a change, I describe what I want and Q makes the edits across files simultaneously. A rename that would take 20 minutes of careful find-and-replace takes 2 minutes with a clear prompt.
+        </p>
+        <div class="highlight">
+          Amazon Q's /dev command is particularly powerful for scaffolding. Describe the feature you want to build and it generates the file structure, boilerplate, and initial implementation. The output is never production-ready, but it's a solid starting point that saves the blank-page problem.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### Claude — Architecture and Thinking</h3>
+        <p>
+          I use Claude for decisions that require reasoning, not just pattern matching. When I'm designing a data model, choosing between two architectural approaches, or trying to understand why something is failing in a non-obvious way, Claude is where I go. The responses are longer and more reasoned than what you get from an IDE assistant.
+        </p>
+        <p>
+          Code review with Claude is genuinely useful. Paste a function and ask what could go wrong — it finds edge cases, security issues, and performance problems that I missed. It also explains why something is a problem, not just that it is one, which is how you actually learn.
+        </p>
+        <div class="highlight">
+          The best prompt pattern I found for architecture decisions: describe the problem, list the constraints, and ask Claude to argue for and against each option before recommending one. The adversarial framing surfaces tradeoffs that a direct recommendation would skip.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### What I Had to Learn to Use These Tools Well</h3>
+        <p>
+          The biggest mistake I made early on was treating AI output as correct by default. It isn't. AI tools hallucinate APIs that don't exist, suggest patterns that are subtly wrong, and confidently produce code that compiles but doesn't do what you asked. The skill is not prompting — it's verification. You have to read every line of generated code as carefully as you'd read code from a junior developer.
+        </p>
+        <p>
+          Prompt engineering matters more than most people admit. Vague prompts produce vague output. Specific prompts — with context, constraints, and examples — produce output that's actually useful. I now spend as much time writing the prompt as I would have spent writing the code, and the result is usually better than what I'd have written alone.
+        </p>
+        <div class="highlight">
+          The most useful prompt addition: "explain your reasoning step by step before giving the final answer." Chain-of-thought prompting produces more accurate output and makes it easier to spot where the reasoning went wrong.
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h3>### The Real Productivity Gain</h3>
+        <p>
+          The productivity gain from agentic AI is not that it writes code faster than you. It's that it eliminates the parts of development that don't require thinking. Boilerplate, repetitive patterns, documentation, test scaffolding, and routine refactoring — these are things that consume time without producing insight. When AI handles them, the time freed up goes to the parts that actually matter: understanding the problem, designing the solution, and making the decisions that require judgment.
+        </p>
+        <p>
+          A project that would have taken me three weeks to scaffold now takes three days. Not because the AI wrote three weeks of code in three days, but because I spent those three weeks on the 20% of the work that required real thinking, and the AI handled the other 80%.
+        </p>
+        <div class="highlight">
+          Agentic AI is a force multiplier, not a replacement. It amplifies what you already know. If you don't understand the code it generates, you can't debug it, extend it, or take responsibility for it. The floor for using these tools effectively is still knowing how to code.
+        </div>
+      </section>
+    </article>
+
+  </main>
+
+  <footer class="blog-footer">
+    <hr>
+    <p><a href="index.html">&larr; back to vivekv.me</a> &nbsp;&middot;&nbsp; &copy; 2025 Vivek V. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Theme
+    const html = document.documentElement;
+    html.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // ── Reading time ──────────────────────────────────────────
+    document.querySelectorAll('.blog-article').forEach(article => {
+      const words = article.innerText.trim().split(/\s+/).length;
+      const mins  = Math.max(1, Math.round(words / 200));
+      const dateEl = article.querySelector('.blog-date');
+      if (dateEl) dateEl.textContent += '  ·  ' + mins + ' min read';
+    });
+
+    // ── Table of contents ─────────────────────────────────────
+    document.querySelectorAll('.blog-article').forEach(article => {
+      const headings = article.querySelectorAll('.blog-section h3');
+      if (headings.length < 2) return;
+      const toc = document.createElement('nav');
+      toc.className = 'blog-toc';
+      toc.innerHTML = '<p class="blog-toc-label">## contents</p>';
+      const ul = document.createElement('ul');
+      headings.forEach((h, i) => {
+        const id = 'sec-' + article.id + '-' + i;
+        h.id = id;
+        const li = document.createElement('li');
+        const a  = document.createElement('a');
+        a.href = '#' + id;
+        a.textContent = h.textContent.replace(/^###\s*/, '');
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+      toc.appendChild(ul);
+      article.querySelector('.blog-article-header').after(toc);
+    });
+
+    // ── Post navigation ───────────────────────────────────────
+    const articles = Array.from(document.querySelectorAll('.blog-article'));
+    articles.forEach((art, i) => {
+      const nav = document.createElement('div');
+      nav.className = 'blog-post-nav';
+      const prev = articles[i + 1];
+      const next = articles[i - 1];
+      nav.innerHTML =
+        (prev ? `<a href="#${prev.id}" class="blog-post-nav-link">&larr; ${prev.querySelector('h2').textContent}</a>` : '<span></span>') +
+        (next ? `<a href="#${next.id}" class="blog-post-nav-link blog-post-nav-link--right">${next.querySelector('h2').textContent} &rarr;</a>` : '<span></span>');
+      art.appendChild(nav);
+    });
+
+    // ── Share links ───────────────────────────────────────────
+    articles.forEach(art => {
+      const url   = encodeURIComponent(location.href.split('#')[0] + '#' + art.id);
+      const title = encodeURIComponent(art.querySelector('h2').textContent);
+      const share = document.createElement('div');
+      share.className = 'blog-share';
+      share.innerHTML =
+        `<span class="blog-share-label">share</span>` +
+        `<a href="https://www.linkedin.com/sharing/share-offsite/?url=${url}" target="_blank" rel="noopener noreferrer" class="blog-share-btn">LinkedIn &#8599;</a>` +
+        `<button class="blog-share-btn" data-copy-url="${decodeURIComponent(url)}">Copy link</button>`;
+      art.appendChild(share);
+    });
+
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('[data-copy-url]');
+      if (!btn) return;
+      navigator.clipboard.writeText(btn.dataset.copyUrl).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = orig, 1800);
+      });
+    });
+
+    // ── Copy code (highlight blocks) ──────────────────────────
+    document.querySelectorAll('.highlight').forEach(block => {
+      const btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.textContent = 'copy';
+      btn.addEventListener('click', () => {
+        navigator.clipboard.writeText(block.innerText.replace('copy', '').trim()).then(() => {
+          btn.textContent = 'copied!';
+          setTimeout(() => btn.textContent = 'copy', 1800);
+        });
+      });
+      block.style.position = 'relative';
+      block.appendChild(btn);
+    });
+
+    // ── Back to top ───────────────────────────────────────────
+    const btt = document.createElement('button');
+    btt.id = 'backToTop';
+    btt.textContent = '&#8593;';
+    btt.innerHTML = '&#8593;';
+    btt.setAttribute('aria-label', 'Back to top');
+    document.body.appendChild(btt);
+    window.addEventListener('scroll', () => {
+      btt.classList.toggle('btt--visible', window.scrollY > 400);
+    });
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+
+  <!-- Chatbot -->
+  <button class="chat-btn" id="chatBtn" aria-label="Open assistant">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+  <div class="chat-widget" id="chatWidget" role="dialog" aria-modal="true" aria-label="Portfolio assistant">
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <span class="chat-header-dot"></span>
+        <span class="chat-header-title">## assistant</span>
+      </div>
+      <button class="chat-close" id="closeChat" aria-label="Close">&times;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-quick-actions" id="chatQuickActions">
+      <button class="quick-chip" data-query="show projects">projects</button>
+      <button class="quick-chip" data-query="what skills do you have">skills</button>
+      <button class="quick-chip" data-query="contact info">contact</button>
+      <button class="quick-chip" data-query="open cv">cv</button>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Ask me anything…" autocomplete="off">
+      <button class="chat-send" id="sendBtn" aria-label="Send">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+  <script src="js/chatbot.js" defer></script>
+</body>
+</html>

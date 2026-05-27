@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Vivek V</title>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:wght@400;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fafaf8; --fg: #1a1a1a; --fg-muted: #5a5a5a;
+      --fg-dim: #8a8a8a; --border: #d4d4d0; --code-bg: #f2f2ef;
+    }
+    [data-theme="dark"] {
+      --bg: #0a0a0a; --fg: #f0ede8; --fg-muted: #a8a49e;
+      --fg-dim: #6e6a64; --border: #222222; --code-bg: #111111;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg); color: var(--fg);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14.5px; line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      display: flex; flex-direction: column;
+    }
+    .topbar {
+      height: 36px; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 1.5rem;
+      border-bottom: 1px solid var(--border); background: var(--bg);
+      flex-shrink: 0;
+    }
+    .topbar a {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
+      color: var(--fg-muted); text-decoration: none; letter-spacing: 0.04em;
+    }
+    .topbar a:hover { color: var(--fg); }
+    #themeToggle {
+      background: none; border: 1px solid var(--border);
+      color: var(--fg-muted); font-size: 0.95rem;
+      width: 1.9rem; height: 1.9rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 2px;
+    }
+    #themeToggle:hover { color: var(--fg); border-color: var(--fg-muted); }
+    .center {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 2rem 1.5rem; text-align: center; gap: 1rem;
+    }
+    .code {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
+      color: var(--fg-dim); letter-spacing: 0.08em;
+    }
+    h1 {
+      font-family: 'IBM Plex Serif', Georgia, serif;
+      font-size: 2.2rem; font-weight: 600; letter-spacing: -0.03em;
+    }
+    p { font-size: 0.88rem; color: var(--fg-muted); max-width: 340px; }
+    .links {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      justify-content: center; margin-top: 0.5rem;
+    }
+    .btn {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
+      padding: 0.35rem 0.85rem; border: 1px solid var(--border);
+      border-radius: 2px; text-decoration: none; color: var(--fg-muted);
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .btn:hover { color: var(--fg); border-color: var(--fg-muted); }
+    .btn--solid {
+      background: var(--fg); color: var(--bg);
+      border-color: var(--fg);
+    }
+    .btn--solid:hover { opacity: 0.82; color: var(--bg); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a href="index.html">&#8592; vivekv.me</a>
+    <button id="themeToggle" aria-label="Toggle theme">&#9680;</button>
+  </div>
+  <div class="center">
+    <p class="code">## 404</p>
+    <h1>Page not found</h1>
+    <p>This page doesn't exist or was moved. Head back to the portfolio.</p>
+    <div class="links">
+      <a href="index.html" class="btn btn--solid">&#8592; Home</a>
+      <a href="project.html" class="btn">Projects</a>
+      <a href="cv.html" class="btn">CV</a>
+      <a href="blog.html" class="btn">Blog</a>
+    </div>
+  </div>
+  <script>
+    const root = document.documentElement;
+    root.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "Vivek V — Portfolio",
+  "short_name": "Vivek V",
+  "description": "Software & Mobile Developer — Flutter, Python, MERN, AI/ML",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafaf8",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "images/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "developer"],
+  "lang": "en"
+}

@@ -1,128 +1,73 @@
 /* ============================================
-   EMAILJS INTEGRATION
-   Contact Form with Auto-Reply
+   EMAILJS — Contact Form + Auto-Reply
    ============================================ */
 
-// EmailJS Configuration
 const EMAILJS_CONFIG = {
-    publicKey: 'WtbuTsmLOXl0kTugm',
-    serviceId: 'service_t4fz59q',
-    templateId: 'template_c3jtcll',
-    autoReplyTemplateId: 'template_vgrkmx9'
+  publicKey:           'WtbuTsmLOXl0kTugm',
+  serviceId:           'service_t4fz59q',
+  templateId:          'template_c3jtcll',
+  autoReplyTemplateId: 'template_vgrkmx9'
 };
 
-// EmailJS is already initialized in index.html, no need to initialize again
+document.addEventListener('DOMContentLoaded', function () {
 
-// Contact Form Handler
-document.addEventListener('DOMContentLoaded', function() {
-    const contactForm = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const formStatus = document.getElementById('formStatus');
+  function wireForm(formId, submitBtnId, statusId, onSuccess) {
+    const form      = document.getElementById(formId);
+    const submitBtn = document.getElementById(submitBtnId);
+    const status    = document.getElementById(statusId);
+    if (!form) return;
 
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Disable submit button
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-            formStatus.textContent = '';
-            formStatus.style.color = '';
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name    = (form.from_name.value  || '').trim();
+      const email   = (form.from_email.value || '').trim();
+      const message = (form.message.value    || '').trim();
 
-            // Get form data - simplified for debugging
-            const templateParams = {
-                from_name: contactForm.from_name.value,
-                from_email: contactForm.from_email.value,
-                message: contactForm.message.value
-            };
+      if (!name || !email || !message) {
+        status.textContent = 'Please fill in all fields.';
+        return;
+      }
 
-            console.log('Sending email with params:', templateParams);
-            console.log('Service ID:', EMAILJS_CONFIG.serviceId);
-            console.log('Template ID:', EMAILJS_CONFIG.templateId);
+      submitBtn.disabled    = true;
+      submitBtn.textContent = 'Sending…';
+      status.textContent    = '';
 
-            // Send main email to you
-            emailjs.send(
-                EMAILJS_CONFIG.serviceId,
-                EMAILJS_CONFIG.templateId,
-                templateParams
-            )
-            .then(function(response) {
-                console.log('Main email sent successfully:', response);
-                
-                // Send auto-reply to client
-                const autoReplyParams = {
-                    to_name: contactForm.from_name.value,
-                    to_email: contactForm.from_email.value,
-                    message: contactForm.message.value
-                };
-                
-                console.log('Sending auto-reply with params:', autoReplyParams);
-                
-                return emailjs.send(
-                    EMAILJS_CONFIG.serviceId,
-                    EMAILJS_CONFIG.autoReplyTemplateId,
-                    autoReplyParams
-                );
-            })
-            .then(function(response) {
-                console.log('Auto-reply sent successfully:', response);
-                
-                // Show success message
-                formStatus.textContent = 'Message sent successfully! Check your email for confirmation.';
-                formStatus.style.color = 'var(--text-primary)';
-                
-                // Reset form
-                contactForm.reset();
-                
-                // Re-enable button after 3 seconds
-                setTimeout(function() {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Send Message';
-                    formStatus.textContent = '';
-                }, 3000);
-            })
-            .catch(function(error) {
-                console.error('Error sending email:', error);
-                console.error('Error details:', JSON.stringify(error));
-                
-                // Show detailed error message
-                let errorMsg = 'Failed to send message. ';
-                if (error.text) {
-                    errorMsg += error.text;
-                } else if (error.status) {
-                    errorMsg += 'Status: ' + error.status;
-                } else {
-                    errorMsg += 'Please check console for details.';
-                }
-                
-                formStatus.textContent = errorMsg;
-                formStatus.style.color = '#dc2626';
-                
-                // Re-enable button
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Message';
-            });
+      emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, { from_name: name, from_email: email, message })
+        .then(() => emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.autoReplyTemplateId, { to_name: name, to_email: email, message }))
+        .then(() => {
+          status.textContent    = '\u2713 Sent!';
+          form.reset();
+          submitBtn.disabled    = false;
+          submitBtn.textContent = 'Send →';
+          if (onSuccess) onSuccess();
+          setTimeout(() => { status.textContent = ''; }, 3000);
+        })
+        .catch(err => {
+          console.error('EmailJS error:', err);
+          status.textContent    = 'Failed. Email: vivekvvivekv70@gmail.com';
+          submitBtn.disabled    = false;
+          submitBtn.textContent = 'Send →';
         });
-    }
-});
+    });
 
-// Form Validation
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-}
-
-// Real-time validation (optional)
-document.addEventListener('DOMContentLoaded', function() {
-    const emailInput = document.querySelector('input[name="from_email"]');
-    
+    // email validation
+    const emailInput = form.from_email;
     if (emailInput) {
-        emailInput.addEventListener('blur', function() {
-            if (this.value && !validateEmail(this.value)) {
-                this.style.borderColor = '#dc2626';
-            } else {
-                this.style.borderColor = '';
-            }
-        });
+      emailInput.addEventListener('blur', function () {
+        const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value);
+        this.style.borderColor = this.value && !valid ? '#888' : '';
+      });
     }
+  }
+
+  // Overlay form
+  wireForm('contactForm', 'submitBtn', 'formStatus', () => {
+    setTimeout(() => {
+      if (typeof window.closeContactOverlay === 'function') window.closeContactOverlay();
+    }, 1500);
+  });
+
+  // Inline contact form (beside contact links)
+  wireForm('inlineContactForm', 'inlineSubmitBtn', 'inlineFormStatus', null);
+
 });

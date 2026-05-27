@@ -1,338 +1,388 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vivek V - CV</title>
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-    <link rel="apple-touch-icon" href="images/favicon.svg">
-    <style>
-        :root {
-            --bg: #f7f9fc;
-            --card: #ffffff;
-            --text: #1f2937;
-            --muted: #4b5563;
-            --border: #e5e7eb;
-            --accent: #2563eb;
-            --button-bg: #ffffff;
-            --button-text: #1f2937;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV — Vivek V</title>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="manifest" href="manifest.json">
+  <meta property="og:title" content="CV — Vivek V">
+  <meta property="og:description" content="BE Computer Science & Data Science, CGPA 8.57. Flutter, Python, MERN, AI/ML developer based in Mysuru.">
+  <meta property="og:image" content="https://vivekv.me/images/profile.jpg">
+  <meta property="og:url" content="https://vivekv.me/cv.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CV — Vivek V">
+  <meta name="twitter:image" content="https://vivekv.me/images/profile.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #fafaf8;
+      --fg:       #1a1a1a;
+      --fg-muted: #5a5a5a;
+      --fg-dim:   #8a8a8a;
+      --border:   #d4d4d0;
+      --code-bg:  #f2f2ef;
+    }
+    [data-theme="dark"] {
+      --bg:       #0a0a0a;
+      --fg:       #f0ede8;
+      --fg-muted: #a8a49e;
+      --fg-dim:   #6e6a64;
+      --border:   #222222;
+      --code-bg:  #111111;
+    }
 
-        [data-theme="dark"] {
-            --bg: #0f172a;
-            --card: #111827;
-            --text: #f3f4f6;
-            --muted: #cbd5e1;
-            --border: #334155;
-            --accent: #60a5fa;
-            --button-bg: #1f2937;
-            --button-text: #f3f4f6;
-        }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+      font-size: 14.5px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        body {
-            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
+    /* TOPBAR */
+    .topbar {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .topbar-left a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--fg-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .topbar-left a:hover { color: var(--fg); }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+    }
+    .topbar-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--fg-muted);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .topbar-link:hover { color: var(--fg); }
+    #themeToggle {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--fg-muted);
+      font-size: 0.95rem;
+      width: 1.9rem;
+      height: 1.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+    }
+    #themeToggle:hover { color: var(--fg); border-color: var(--fg-muted); }
 
-        .wrapper {
-            max-width: 920px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
+    /* LAYOUT */
+    .wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
 
-        .top-links {
-            display: flex;
-            justify-content: flex-start;
-            margin-bottom: 0.8rem;
-        }
+    /* PAGE HEADER */
+    .page-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-title {
+      font-family: 'IBM Plex Serif', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .page-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--fg-muted);
+    }
+    .download-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      background: var(--fg);
+      color: var(--bg);
+      border: none;
+      padding: 0.35rem 0.85rem;
+      cursor: pointer;
+      border-radius: 2px;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+    .download-btn:hover { opacity: 0.8; }
 
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.45rem 0.85rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            color: var(--text);
-            background: var(--card);
-            text-decoration: none;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
+    /* CONTACT ROW */
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.2rem;
+      margin-bottom: 1.75rem;
+    }
+    .contact-row a, .contact-row span {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--fg-muted);
+      text-decoration: none;
+    }
+    .contact-row a:hover { color: var(--fg); }
 
-        .back-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
+    /* SECTIONS */
+    section { margin-bottom: 2rem; }
 
-        .cv-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 1.5rem;
-        }
+    h2 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--fg-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
 
-        .cv-header {
-            position: relative;
-            padding-right: 170px;
-        }
+    .item { margin-bottom: 1.25rem; }
+    .item:last-child { margin-bottom: 0; }
 
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 0.4rem;
-        }
+    h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 0.1rem;
+    }
 
-        h2 {
-            margin-top: 1.7rem;
-            margin-bottom: 0.7rem;
-            font-size: 1.2rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.35rem;
-        }
+    .meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--fg-muted);
+      margin-bottom: 0.4rem;
+    }
 
-        h3 {
-            font-size: 1rem;
-            margin-bottom: 0.2rem;
-        }
+    p { color: var(--fg-muted); font-size: 0.88rem; margin-bottom: 0.4rem; }
 
-        p {
-            color: var(--muted);
-            margin-bottom: 0.45rem;
-        }
+    ul { padding-left: 1.1rem; margin-bottom: 0.5rem; }
+    li { font-size: 0.88rem; color: var(--fg); margin-bottom: 0.2rem; }
 
-        .contact {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem 1.2rem;
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
-        }
+    .tech {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--fg-muted);
+      margin-top: 0.35rem;
+    }
 
-        .contact a {
-            color: var(--accent);
-            text-decoration: none;
-        }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.5rem;
+    }
+    .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--fg-muted);
+      border: 1px solid var(--border);
+      background: var(--code-bg);
+      padding: 0.1rem 0.4rem;
+      border-radius: 2px;
+    }
 
-        .contact a:hover {
-            text-decoration: underline;
-        }
+    a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border); }
+    a:hover { color: var(--fg-muted); }
 
-        .resume-actions {
-            position: absolute;
-            top: 0;
-            right: 0;
-            margin: 0;
-        }
+    hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
 
-        .resume-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.55rem 0.95rem;
-            border-radius: 8px;
-            border: 1px solid var(--accent);
-            color: #ffffff;
-            background: var(--accent);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .resume-btn:hover {
-            opacity: 0.92;
-        }
-
-        @media (max-width: 640px) {
-            .cv-header {
-                padding-right: 0;
-            }
-
-            .resume-actions {
-                position: static;
-                margin: 0.6rem 0 0.8rem;
-            }
-        }
-
-        ul {
-            margin: 0.4rem 0 0.85rem 1.2rem;
-        }
-
-        li {
-            margin-bottom: 0.35rem;
-        }
-
-        .item {
-            margin-bottom: 1rem;
-        }
-
-        .meta {
-            color: var(--muted);
-            font-size: 0.92rem;
-            margin-bottom: 0.45rem;
-        }
-
-        .tech {
-            color: var(--text);
-            font-size: 0.92rem;
-        }
-    </style>
+    @media (max-width: 600px) {
+      .page-header { flex-direction: column; gap: 0.75rem; }
+    }
+  </style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="top-links">
-            <button class="back-btn" id="backBtn" type="button">Back</button>
-        </div>
-        <article class="cv-card">
-            <header class="cv-header">
-                <h1>VIVEK V</h1>
-                <div class="contact">
-                    <a href="https://www.linkedin.com/in/vivek-v-a0a41225a" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                    <a href="https://vivekv.me/" target="_blank" rel="noopener noreferrer">Portfolio</a>
-                    <span>7892409872</span>
-                    <a href="mailto:vivekvvivekv70@gmail.com">vivekvvivekv70@gmail.com</a>
-                    <a href="https://github.com/Vivek7892" target="_blank" rel="noopener noreferrer">GitHub</a>
-                </div>
-                <div class="resume-actions">
-                    <a class="resume-btn" href="resume/VIVEK V.pdf" download="VIVEK_V_Resume.pdf">Download Resume</a>
-                </div>
-                <p>Passionate about building AI-powered applications and scalable web systems that solve real-world problems.</p>
-            </header>
 
-            <section>
-                <h2>Professional Experience</h2>
-                <div class="item">
-                    <h3>Apisis Solutions - Mobile Application Development Intern</h3>
-                    <p class="meta">Feb 2026 - Present</p>
-                    <ul>
-                        <li>Developed cross-platform mobile and web interfaces using Dart (Flutter), HTML, CSS, and JavaScript with responsive screens across devices.</li>
-                        <li>Worked on a Home Automation system to monitor and control smart appliances, including device-control logic, user workflows, and backend communication.</li>
-                        <li>Built a real-time Weather Forecast application with third-party REST APIs, asynchronous data handling, JSON parsing, and dynamic UI updates.</li>
-                        <li>Supported backend and maintenance tasks including debugging, performance optimization, basic Django API handling, and collaboration using Git.</li>
-                    </ul>
-                    <p class="tech"><strong>Technologies:</strong> Dart (Flutter), HTML, CSS, JavaScript, REST APIs, Git</p>
-                </div>
-            </section>
-
-            <section>
-                <h2>Projects</h2>
-
-                <div class="item">
-                    <h3>AI Powered Student Learning Platform using RAG with LangChain</h3>
-                    <ul>
-                        <li>Developed a full-stack AI chatbot using the MERN stack to answer academic queries in real time, with responsive React UI and RESTful backend APIs.</li>
-                        <li>Designed a RAG pipeline to process uploaded PDF/DOCX/TXT documents, generate embeddings, and perform semantic search for accurate responses.</li>
-                        <li>Integrated AWS services including Amazon Bedrock, Amazon S3, and Cognito-based authentication.</li>
-                        <li>Implemented real-time chat with Socket.IO, maintained conversation history in MongoDB, and structured modular backend services for scalability.</li>
-                    </ul>
-                    <p class="tech"><strong>Tech Stack:</strong> MERN Stack, LangChain, Gemini API, AWS S3, Socket.IO</p>
-                </div>
-
-                <div class="item">
-                    <h3>DDoS Detection in SDN with ML</h3>
-                    <ul>
-                        <li>Built an intrusion detection system to identify abnormal network traffic patterns.</li>
-                        <li>Used Scikit-learn and Pandas for preprocessing and model training.</li>
-                        <li>Visualized attack detection results using Matplotlib.</li>
-                    </ul>
-                    <p class="tech"><strong>Tech Stack:</strong> Python, Scikit-learn, Pandas, Matplotlib</p>
-                </div>
-
-                <div class="item">
-                    <h3>Weather Mobile Application</h3>
-                    <ul>
-                        <li>Developed a cross-platform weather app in Flutter with Material UI, responsive layouts, and dark/light theme support.</li>
-                        <li>Integrated OpenWeatherMap REST API with GPS location and city search for real-time weather, hourly, and 7-day forecasts.</li>
-                        <li>Implemented MVVM architecture with Provider, async API handling, JSON parsing, caching, and offline storage.</li>
-                        <li>Added error handling, loading states, and performance optimizations for smooth user experience.</li>
-                    </ul>
-                    <p class="tech"><strong>Tech Stack:</strong> Flutter, Dart, REST API, Provider, Geolocator, Shared Preferences, HTTP Package</p>
-                </div>
-
-                <div class="item">
-                    <h3>AI-Powered Document Verification System</h3>
-                    <ul>
-                        <li>Developed a web app to upload and automatically verify identity documents (Aadhaar/PAN/Certificates) using OCR-based text extraction.</li>
-                        <li>Implemented image preprocessing and validation logic to compare extracted Name, DOB, and ID numbers against user inputs.</li>
-                        <li>Built secure login and admin dashboard with database storage to approve/reject documents and track verification status.</li>
-                    </ul>
-                    <p class="tech"><strong>Tech Stack:</strong> Python, Flask, OpenCV, MongoDB, Tesseract OCR</p>
-                </div>
-            </section>
-
-            <section>
-                <h2>Technical Skills</h2>
-                <ul>
-                    <li><strong>Programming Languages & Technologies:</strong> Python, C, Dart, JavaScript, HTML, CSS, Flutter, MERN Stack, Django, MySQL, REST APIs, Git & GitHub</li>
-                    <li><strong>Tools & Concepts:</strong> Retrieval-Augmented Generation (RAG), LLM APIs, Prompt Engineering, API Integration</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>Education</h2>
-                <div class="item">
-                    <h3>ATME College of Engineering, Mysuru</h3>
-                    <p class="meta">Bachelor of Engineering in CSE (Data Science) - 8.37 CGPA | 2022-2026</p>
-                </div>
-                <div class="item">
-                    <h3>JSS PU College, SJCE Campus, Mysuru</h3>
-                    <p class="meta">PCMB - 91.17% | 2020-2022</p>
-                </div>
-            </section>
-
-            <section>
-                <h2>Additional Information</h2>
-                <h3>Certifications</h3>
-                <ul>
-                    <li>Python Foundations Certification - Infosys Springboard</li>
-                    <li>Data Engineering Training - IVIS Lab</li>
-                </ul>
-                <h3>Publications</h3>
-                <ul>
-                    <li>Published research paper: "A Review on RAG-Based Student Assistant Chatbot using LangChain" in EPRA IJRD, Vol.10, Issue 8, Aug 2025</li>
-                    <li>DOI: <a href="https://doi.org/10.36713/epra23698" target="_blank" rel="noopener noreferrer">https://doi.org/10.36713/epra23698</a></li>
-                </ul>
-                <ul>
-                    <li>Participation: CODE-HUNT 2025, Vidyavardhaka College of Engineering</li>
-                    <li>Languages Known: English (Professional), Kannada (Native), Hindi (Limited)</li>
-                    <li>Interests: AI & Chatbot Development, Full-Stack Web & Mobile App Development, Problem Solving, Learning New Technologies</li>
-                </ul>
-            </section>
-        </article>
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="index.html">&#8592; vivekv.me</a>
     </div>
-    <script>
-        const root = document.documentElement;
-        const savedTheme = localStorage.getItem('theme') || 'light';
+    <div class="topbar-right">
+      <a href="project.html" class="topbar-link">projects &#8599;</a>
+      <a href="blog.html" class="topbar-link">blog &#8599;</a>
+      <button id="themeToggle" aria-label="Toggle theme">&#9680;</button>
+    </div>
+  </div>
 
-        function setTheme(theme) {
-            root.setAttribute('data-theme', theme);
-        }
+  <div class="wrapper">
 
-        setTheme(savedTheme);
+    <div class="page-header">
+      <div>
+        <p class="page-sub">## curriculum vitae</p>
+        <h1 class="page-title">Vivek V</h1>
+      </div>
+      <a class="download-btn" href="resume/VIVEK V.pdf" target="_blank" rel="noopener noreferrer">preview &#8599;</a>
+      <a class="download-btn" href="resume/VIVEK V.pdf" download="VIVEK_V.pdf" style="margin-left:0.5rem">download &#8595;</a>
+    </div>
 
-        window.addEventListener('storage', (event) => {
-            if (event.key === 'theme') {
-                setTheme(event.newValue || 'light');
-            }
-        });
+    <div class="contact-row">
+      <a href="mailto:vivekvvivekv70@gmail.com">vivekvvivekv70@gmail.com</a>
+      <a href="https://github.com/Vivek7892" target="_blank" rel="noopener noreferrer">github.com/Vivek7892 &#8599;</a>
+      <a href="https://linkedin.com/in/vivek-v-a0a41225a" target="_blank" rel="noopener noreferrer">linkedin &#8599;</a>
+      <a href="https://vivekv.me" target="_blank" rel="noopener noreferrer">vivekv.me &#8599;</a>
+      <span>Mysuru, India</span>
+    </div>
 
-        const backBtn = document.getElementById('backBtn');
-        if (backBtn) {
-            backBtn.addEventListener('click', () => {
-                if (window.history.length > 1) {
-                    window.history.back();
-                } else {
-                    window.location.href = 'index.html';
-                }
-            });
-        }
-    </script>
+    <section>
+      <h2>## Experience</h2>
+      <div class="item">
+        <h3>Apsis Solutions — Mobile Application Development Intern</h3>
+        <p class="meta">Feb 2025 — Present</p>
+        <ul>
+          <li>Developed cross-platform mobile interfaces using Flutter with responsive screens across devices.</li>
+          <li>Built a Home Automation system to monitor and control smart appliances including device-control logic and backend communication.</li>
+          <li>Built a real-time Weather Forecast app with third-party REST APIs, async data handling, and dynamic UI updates.</li>
+          <li>Supported backend tasks including debugging, performance optimization, and collaboration using Git.</li>
+        </ul>
+        <p class="tech">Dart (Flutter) · HTML · CSS · JavaScript · REST APIs · Git</p>
+      </div>
+      <div class="item">
+        <h3>IVIS Lab — Data Engineering Training</h3>
+        <p class="meta">2023</p>
+        <ul>
+          <li>Processed and cleaned large datasets using Python and Pandas.</li>
+          <li>Built data pipelines for structured data ingestion and transformation.</li>
+          <li>Worked with research-grade datasets in a lab environment.</li>
+        </ul>
+        <p class="tech">Python · Pandas · Data Pipelines</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>## Projects</h2>
+      <div class="item">
+        <h3>AI Student Assistant — MERN Stack + RAG</h3>
+        <ul>
+          <li>Full-stack AI chatbot using MERN stack to answer academic queries in real time with responsive React UI and RESTful backend APIs.</li>
+          <li>RAG pipeline to process uploaded PDF/DOCX/TXT documents, generate embeddings, and perform semantic search for accurate responses.</li>
+          <li>Real-time chat with Socket.IO, conversation history in MongoDB, and modular backend services.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Express</span>
+          <span class="tag">MongoDB</span><span class="tag">LangChain</span><span class="tag">Socket.IO</span>
+          <span class="tag">Python</span><span class="tag">Flask</span>
+        </div>
+      </div>
+      <div class="item">
+        <h3>IoT Home Automation — Flutter</h3>
+        <ul>
+          <li>Flutter app for managing smart home channels, devices, scenes, and user permissions.</li>
+          <li>Full onboarding flow with QR-code and Wi-Fi channel setup, runtime permission handling.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">BLE</span><span class="tag">Wi-Fi</span>
+        </div>
+      </div>
+      <div class="item">
+        <h3>DDoS Detection in SDN with ML</h3>
+        <ul>
+          <li>Random Forest classifier on 100K+ network traffic samples achieving 95%+ detection accuracy.</li>
+          <li>Real-time classification pipeline and Flask monitoring dashboard.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">Scikit-learn</span><span class="tag">Pandas</span><span class="tag">Flask</span>
+        </div>
+      </div>
+      <div class="item">
+        <h3>AI-Powered Document Verification System</h3>
+        <ul>
+          <li>OCR-based text extraction from identity documents with field comparison and mismatch detection.</li>
+          <li>Flask app with admin dashboard, MongoDB storage, and audit tracking.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">OpenCV</span>
+          <span class="tag">Tesseract OCR</span><span class="tag">MongoDB</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>## Skills</h2>
+      <div class="item">
+        <p class="tech">Languages — Python · JavaScript · Dart · C · SQL</p>
+        <p class="tech">Web / Backend — Flask · Node.js · Express · REST APIs · HTML · CSS</p>
+        <p class="tech">Mobile — Flutter · Dart · Firebase · BLE · Wi-Fi</p>
+        <p class="tech">Databases — MongoDB · MySQL · SQLite · OpenSearch</p>
+        <p class="tech">Cloud / GCP — Firebase · Firebase Auth · OAuth 2.0 · Firestore · Cloud Functions · GCC</p>
+        <p class="tech">AI / ML — LangChain · RAG · Scikit-learn · Pandas · OpenCV</p>
+        <p class="tech">Tools — Git · GitHub · Postman · Docker · Socket.IO · VS Code</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>## Education</h2>
+      <div class="item">
+        <h3>ATME College of Engineering, Mysuru</h3>
+        <p class="meta">2022 — 2026 · BE in Computer Science and Data Science · CGPA 8.57</p>
+        <p class="tech">Visvesvaraya Technological University, Belagavi</p>
+      </div>
+      <div class="item">
+        <h3>JSS PU College, SJCE Campus, Mysuru</h3>
+        <p class="meta">2020 — 2022 · Pre-University (PUC) · 91.17%</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>## Research &amp; Certifications</h2>
+      <div class="item">
+        <h3>Published Research Paper</h3>
+        <p>"A Review on RAG-Based Student Assistant Chatbot using LangChain" — EPRA IJRD, Vol. 10, Issue 8, Aug 2025</p>
+        <p class="tech"><a href="https://doi.org/10.36713/epra23698" target="_blank" rel="noopener noreferrer">DOI: 10.36713/epra23698 &#8599;</a></p>
+      </div>
+      <div class="item">
+        <p class="tech">Python Foundations — Infosys Springboard</p>
+        <p class="tech">Data Engineering Training — IVIS Lab</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'light';
+    root.setAttribute('data-theme', saved);
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    window.addEventListener('storage', e => {
+      if (e.key === 'theme') root.setAttribute('data-theme', e.newValue || 'light');
+    });
+  </script>
 </body>
 </html>
