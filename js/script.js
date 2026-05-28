@@ -58,7 +58,31 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // Scroll nav links inside .content panel (not window)
 const contentPanel = document.querySelector('.content');
-const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"], .mobile-menu-links a[href^="#"], .footer-quick-links a[href^="#"]');
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const mobileMenuLinks = document.getElementById('mobileMenuLinks');
+
+function closeMobileMenu() {
+  if (!mobileMenuToggle || !mobileMenuLinks) return;
+  mobileMenuToggle.setAttribute('aria-expanded', 'false');
+  mobileMenuToggle.setAttribute('aria-label', 'Open section menu');
+  mobileMenuLinks.classList.remove('open');
+  document.body.classList.remove('mobile-menu-open');
+}
+
+if (mobileMenuToggle && mobileMenuLinks) {
+  mobileMenuToggle.addEventListener('click', () => {
+    const isOpen = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+    mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
+    mobileMenuToggle.setAttribute('aria-label', isOpen ? 'Open section menu' : 'Close section menu');
+    mobileMenuLinks.classList.toggle('open', !isOpen);
+    document.body.classList.toggle('mobile-menu-open', !isOpen);
+  });
+
+  mobileMenuLinks.addEventListener('click', e => {
+    if (e.target === mobileMenuLinks) closeMobileMenu();
+  });
+}
 
 navLinks.forEach(link => {
   link.addEventListener('click', e => {
@@ -66,16 +90,47 @@ navLinks.forEach(link => {
     const target = document.getElementById(id);
     if (target && contentPanel) {
       e.preventDefault();
-      contentPanel.scrollTo({ top: target.offsetTop - 32, behavior: 'smooth' });
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        contentPanel.scrollTo({ top: target.offsetTop - 32, behavior: 'smooth' });
+      }
+      closeMobileMenu();
     }
   });
 });
+
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+function getScrollTop() {
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    return window.scrollY || document.documentElement.scrollTop;
+  }
+  return contentPanel ? contentPanel.scrollTop : 0;
+}
+
+function updateScrollTopBtn() {
+  if (!scrollTopBtn) return;
+  scrollTopBtn.classList.toggle('visible', getScrollTop() > 180);
+}
+
+if (scrollTopBtn) {
+  scrollTopBtn.addEventListener('click', () => {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (contentPanel) {
+      contentPanel.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+  window.addEventListener('scroll', updateScrollTopBtn, { passive: true });
+}
 
 // Active nav highlight
 const sections = contentPanel ? contentPanel.querySelectorAll('section[id]') : [];
 
 if (contentPanel) {
   contentPanel.addEventListener('scroll', () => {
+    updateScrollTopBtn();
     let current = '';
     sections.forEach(sec => {
       if (contentPanel.scrollTop >= sec.offsetTop - 60) current = sec.id;
@@ -102,7 +157,7 @@ if (profileLightboxClose) profileLightboxClose.addEventListener('click', closeLi
 if (profileLightbox) {
   profileLightbox.addEventListener('click', e => { if (e.target === profileLightbox) closeLightbox(); });
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightbox(); closeOverlay(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightbox(); closeOverlay(); closeMobileMenu(); } });
 
 // Topbar "Get in touch" button opens contact overlay
 const topbarBtn = document.getElementById('topbarContactBtn');
