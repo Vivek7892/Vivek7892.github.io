@@ -32,8 +32,30 @@ document.addEventListener('DOMContentLoaded', function () {
       submitBtn.textContent = 'Sending…';
       status.textContent    = '';
 
-      emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, { from_name: name, from_email: email, message })
-        .then(() => emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.autoReplyTemplateId, { to_name: name, to_email: email, message }))
+      const templateParams = {
+        from_name: name,
+        from_email: email,
+        reply_to: email,
+        to_name: 'Vivek V',
+        to_email: 'vivekvvivekv70@gmail.com',
+        message,
+        page_url: window.location.href,
+        sent_at: new Date().toLocaleString('en-IN', {
+          dateStyle: 'medium',
+          timeStyle: 'short'
+        })
+      };
+
+      const autoReplyParams = {
+        ...templateParams,
+        to_name: name,
+        to_email: email,
+        owner_name: 'Vivek V',
+        owner_email: 'vivekvvivekv70@gmail.com'
+      };
+
+      emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams)
+        .then(() => emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.autoReplyTemplateId, autoReplyParams))
         .then(() => {
           status.textContent    = '\u2713 Sent!';
           form.reset();
