@@ -28,6 +28,11 @@
     <nav class="blog-nav">
       <a href="index.html" class="blog-back">&larr; vivekv.me</a>
       <span class="blog-nav-title">## Blog</span>
+      <div class="blog-nav-links" aria-label="Page navigation">
+        <a href="index.html#projects">home projects</a>
+        <a href="project.html">all projects</a>
+        <a href="index.html#contact">contact</a>
+      </div>
       <button id="themeToggle" aria-label="Toggle theme">&#9680;</button>
     </nav>
   </header>
@@ -36,6 +41,11 @@
 
     <div class="blog-intro">
       <p>Notes on building projects, technical decisions, and things I learned along the way.</p>
+      <div class="blog-quick-links" aria-label="Related portfolio links">
+        <a href="index.html#projects">Featured projects</a>
+        <a href="project.html">Detailed project portfolio</a>
+        <a href="index.html#about">About Vivek</a>
+      </div>
     </div>
 
     <hr>
@@ -627,24 +637,26 @@
     btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   </script>
 
-  <!-- Chatbot -->
   <button class="chat-btn" id="chatBtn" aria-label="Open assistant">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
   </button>
   <div class="chat-widget" id="chatWidget" role="dialog" aria-modal="true" aria-label="Portfolio assistant">
     <div class="chat-header">
       <div class="chat-header-left">
-        <span class="chat-header-dot"></span>
-        <span class="chat-header-title">## assistant</span>
+        <div class="chat-header-avatar">V</div>
+        <div class="chat-header-info">
+          <span class="chat-header-name">Vivek's AI Assistant</span>
+          <span class="chat-header-status"><span class="chat-header-dot"></span>Online</span>
+        </div>
       </div>
       <button class="chat-close" id="closeChat" aria-label="Close">&times;</button>
     </div>
     <div class="chat-messages" id="chatMessages"></div>
     <div class="chat-quick-actions" id="chatQuickActions">
-      <button class="quick-chip" data-query="show projects">projects</button>
-      <button class="quick-chip" data-query="what skills do you have">skills</button>
-      <button class="quick-chip" data-query="contact info">contact</button>
-      <button class="quick-chip" data-query="open cv">cv</button>
+      <button class="quick-chip" data-query="show all projects">&#128193; Projects</button>
+      <button class="quick-chip" data-query="what skills does Vivek know">&#9889; Skills</button>
+      <button class="quick-chip" data-query="contact information">&#128236; Contact</button>
+      <button class="quick-chip" data-query="download resume">&#128196; Resume</button>
     </div>
     <div class="chat-input-row">
       <input class="chat-input" id="chatInput" type="text" placeholder="Ask me anything…" autocomplete="off">
