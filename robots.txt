@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Allow important pages
+Allow: /project.html
+Allow: /blog.html
+Allow: /resume/
+
+# Sitemap location
+Sitemap: https://www.vivekv.me/sitemap.xml
