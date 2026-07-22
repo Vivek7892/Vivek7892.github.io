@@ -15,6 +15,10 @@
   --accent-soft:#e8efff;
   --accent-line:#b9c9f8;
   --sidebar-w:  300px;
+  --radius:     6px;
+  --shadow-sm:  0 1px 4px rgba(0,0,0,0.06);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.10);
+  --transition: 0.18s ease;
 }
 
 [data-theme="dark"] {
@@ -29,6 +33,8 @@
   --accent-soft:#111b2e;
   --accent-line:#263d66;
   --sidebar-w:  300px;
+  --shadow-sm:  0 1px 4px rgba(0,0,0,0.25);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.40);
 }
 
 /* --- Reset --- */
@@ -272,8 +278,13 @@ body {
   display: block;
   overflow: hidden;
   flex-shrink: 0;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
 }
-.profile-pic:hover { border-color: var(--fg-muted); }
+.profile-pic:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  transform: scale(1.04);
+}
 
 .avail-dot {
   position: absolute;
@@ -423,11 +434,16 @@ body {
 .stat-card {
   border: 1px solid var(--border);
   background: var(--code-bg);
-  border-radius: 4px;
+  border-radius: var(--radius);
   padding: 0.5rem 0.65rem;
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.stat-card:hover {
+  border-color: var(--fg-muted);
+  box-shadow: var(--shadow-sm);
 }
 
 .stat-card--wide {
@@ -491,11 +507,12 @@ body {
   text-decoration: none;
   color: var(--fg-muted);
   letter-spacing: 0.02em;
-  padding: 0.15rem 0;
-  transition: color 0.15s;
+  padding: 0.15rem 0 0.15rem 0.6rem;
+  border-left: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition), padding-left var(--transition);
 }
-.nav-links a:hover,
-.nav-links a.active { color: var(--fg); }
+.nav-links a:hover { color: var(--fg); border-left-color: var(--border); }
+.nav-links a.active { color: var(--fg); border-left-color: var(--accent); font-weight: 600; }
 
 .nav-divider {
   height: 1px;
@@ -536,16 +553,17 @@ body {
   width: 28px;
   height: 28px;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius);
   color: var(--fg-muted);
   text-decoration: none;
-  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  transition: color var(--transition), border-color var(--transition), background var(--transition), transform var(--transition);
   background: transparent;
 }
 .sb-icon-btn:hover {
   color: var(--fg);
   border-color: var(--fg-muted);
   background: var(--code-bg);
+  transform: translateY(-1px);
 }
 
 .sidebar-actions {
@@ -593,6 +611,23 @@ body {
 .resizer:hover, .resizer.dragging { background: var(--border); }
 
 /* ============================================
+   SCROLL PROGRESS BAR
+   ============================================ */
+.scroll-progress {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), #60a5fa);
+  z-index: 50;
+  transition: width 0.08s linear;
+  margin-bottom: -2px;
+  pointer-events: none;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ============================================
    MAIN CONTENT PANEL
    ============================================ */
 .content {
@@ -601,6 +636,7 @@ body {
   scroll-behavior: smooth;
   padding: 2rem 2rem 2.5rem;
   min-width: 0;
+  position: relative;
 }
 
 .content p {
@@ -634,11 +670,11 @@ body {
 }
 
 .blog-panel-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--fg-muted);
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  color: var(--fg);
+  letter-spacing: 0.01em;
 }
 
 .blog-open-link {
@@ -676,14 +712,16 @@ body {
 }
 
 .blog-post-title {
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 0.83rem;
   font-weight: 600;
   color: var(--fg);
   line-height: 1.3;
   margin: 0;
   letter-spacing: -0.01em;
+  transition: color var(--transition);
 }
+.blog-post-item:hover .blog-post-title { color: var(--accent); }
 
 .blog-post-excerpt {
   font-size: 0.73rem;
@@ -778,6 +816,27 @@ section > h2 { margin-bottom: 1rem; }
   font-size: 1.1rem;
   color: var(--fg);
   letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Style the ## prefix in headings */
+#about h2::before,
+#experience h2::before,
+#projects h2::before,
+#skills h2::before,
+#tools h2::before,
+#education h2::before,
+#research h2::before,
+#contact h2::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background: var(--accent);
+  border-radius: 2px;
+  flex-shrink: 0;
 }
 
 #about p {
@@ -817,12 +876,32 @@ article {
   margin-bottom: 1.1rem;
   padding-bottom: 1.1rem;
   border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
 }
 article:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
 article h3 { margin-bottom: 0.12rem; }
 article .meta { margin-bottom: 0.45rem; }
 article p { margin-bottom: 0.45rem; }
 article ul { margin-top: 0.3rem; margin-bottom: 0; }
+
+/* Project articles get card hover */
+#projects article:not(.featured-project) {
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  margin-bottom: 0.85rem;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+#projects article:not(.featured-project):hover {
+  border-color: var(--fg-muted);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+#projects article:not(.featured-project):last-child {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.9rem;
+  margin-bottom: 0;
+}
 
 /* --- Skills dl --- */
 dl {
@@ -880,7 +959,21 @@ dd { font-size: 0.9rem; color: var(--fg); margin: 0; }
 }
 .tech-line a:hover { color: var(--fg); border-color: var(--fg-muted); }
 
-/* --- Featured Project --- */\n.featured-project {\n  border: 1px solid var(--accent-line);\n  background: var(--accent-soft);\n  border-radius: 4px;\n  padding: 1.1rem 1.25rem;\n  margin-bottom: 1.25rem;\n}\n.featured-label {\n  font-family: 'JetBrains Mono', monospace;\n  font-size: 0.72rem;\n  color: var(--accent);\n  letter-spacing: 0.05em;\n  text-transform: uppercase;\n  margin-bottom: 0.5rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.ongoing-badge {\n  font-family: 'JetBrains Mono', monospace;\n  font-size: 0.7rem;\n  color: #22c55e;\n  letter-spacing: 0.02em;\n  text-transform: none;\n}\n.project-result {\n  font-size: 0.88rem;\n  color: var(--fg-muted);\n  border-left: 2px solid var(--accent-line);\n  padding-left: 0.7rem;\n  margin-top: 0.6rem;\n  line-height: 1.6;\n}\n\n/* --- Skills Cards Grid --- */\n.skills-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));\n  gap: 0.85rem;\n}\n.skill-card {\n  border: 1px solid var(--border);\n  background: var(--code-bg);\n  border-radius: 4px;\n  padding: 0.85rem 1rem;\n}\n.skill-card--learning {\n  border-color: var(--accent-line);\n  background: var(--accent-soft);\n}\n.skill-card-title {\n  font-family: 'Inter', sans-serif;\n  font-size: 0.78rem;\n  font-weight: 700;\n  color: var(--accent);\n  letter-spacing: 0.01em;\n  margin-bottom: 0.6rem;\n}\n.skill-tags {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.35rem;\n}\n.skill-tags span {\n  font-family: 'JetBrains Mono', monospace;\n  font-size: 0.72rem;\n  color: var(--fg);\n  border: 1px solid var(--border);\n  background: var(--bg);\n  padding: 0.15rem 0.45rem;\n  border-radius: 2px;\n}\n.skill-card--learning .skill-tags span {\n  border-color: var(--accent-line);\n  color: var(--accent);\n  background: var(--bg);\n}\n\n/* --- Timeline --- */\n.timeline {\n  display: flex;\n  flex-direction: column;\n  border-left: 2px solid var(--border);\n  margin-left: 0.5rem;\n  padding-left: 1.35rem;\n}\n.timeline-item {\n  display: flex;\n  align-items: baseline;\n  gap: 1rem;\n  padding: 0.65rem 0;\n  border-bottom: 1px solid var(--border-dim);\n  position: relative;\n}\n.timeline-item::before {\n  content: '';\n  position: absolute;\n  left: -1.55rem;\n  top: 50%;\n  transform: translateY(-50%);\n  width: 9px;\n  height: 9px;\n  border-radius: 50%;\n  background: var(--border);\n  border: 2px solid var(--bg);\n}\n.timeline-item:last-child { border-bottom: none; }\n.timeline-year {\n  font-family: 'JetBrains Mono', monospace;\n  font-size: 0.75rem;\n  color: var(--accent);\n  font-weight: 600;\n  white-space: nowrap;\n  min-width: 38px;\n}\n.timeline-content {\n  font-size: 0.92rem;\n  color: var(--fg);\n  line-height: 1.5;\n}\n\n/* --- Skills table --- */
+/* --- Featured Project --- */
+.featured-project {
+  border: 1px solid var(--accent-line);
+  background: var(--accent-soft);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+}
+.featured-project:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}\n.featured-label {\n  font-family: 'JetBrains Mono', monospace;\n  font-size: 0.72rem;\n  color: var(--accent);\n  letter-spacing: 0.05em;\n  text-transform: uppercase;\n  margin-bottom: 0.5rem;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.ongoing-badge {\n  font-family: 'JetBrains Mono', monospace;\n  font-size: 0.7rem;\n  color: #22c55e;\n  letter-spacing: 0.02em;\n  text-transform: none;\n}\n.project-result {\n  font-size: 0.88rem;\n  color: var(--fg-muted);\n  border-left: 2px solid var(--accent-line);\n  padding-left: 0.7rem;\n  margin-top: 0.6rem;\n  line-height: 1.6;\n}\n\n/* --- Skills Cards Grid --- */\n.skills-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));\n  gap: 0.85rem;\n}\n.skill-card {\n  border: 1px solid var(--border);\n  background: var(--code-bg);\n  border-radius: 4px;\n  padding: 0.85rem 1rem;\n}\n.skill-card--learning {\n  border-color: var(--accent-line);\n  background: var(--accent-soft);\n}\n.skill-card-title {\n  font-family: 'Inter', sans-serif;\n  font-size: 0.78rem;\n  font-weight: 700;\n  color: var(--accent);\n  letter-spacing: 0.01em;\n  margin-bottom: 0.6rem;\n}\n.skill-tags {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.35rem;\n}\n.skill-tags span {\n  font-family: 'JetBrains Mono', monospace;\n  font-size: 0.72rem;\n  color: var(--fg);\n  border: 1px solid var(--border);\n  background: var(--bg);\n  padding: 0.15rem 0.45rem;\n  border-radius: 2px;\n}\n.skill-card--learning .skill-tags span {\n  border-color: var(--accent-line);\n  color: var(--accent);\n  background: var(--bg);\n}\n\n/* --- Timeline --- */\n.timeline {\n  display: flex;\n  flex-direction: column;\n  border-left: 2px solid var(--border);\n  margin-left: 0.5rem;\n  padding-left: 1.35rem;\n}\n.timeline-item {\n  display: flex;\n  align-items: baseline;\n  gap: 1rem;\n  padding: 0.65rem 0;\n  border-bottom: 1px solid var(--border-dim);\n  position: relative;\n}\n.timeline-item::before {\n  content: '';\n  position: absolute;\n  left: -1.55rem;\n  top: 50%;\n  transform: translateY(-50%);\n  width: 9px;\n  height: 9px;\n  border-radius: 50%;\n  background: var(--border);\n  border: 2px solid var(--bg);\n}\n.timeline-item:last-child { border-bottom: none; }\n.timeline-year {\n  font-family: 'JetBrains Mono', monospace;\n  font-size: 0.75rem;\n  color: var(--accent);\n  font-weight: 600;\n  white-space: nowrap;\n  min-width: 38px;\n}\n.timeline-content {\n  font-size: 0.92rem;\n  color: var(--fg);\n  line-height: 1.5;\n}\n\n/* --- Skills table --- */
 .skills-table {
   width: 100%;
   border-collapse: collapse;
@@ -1631,16 +1724,45 @@ footer p { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: 
 }
 
 /* ============================================
+   TYPING CURSOR ANIMATION
+   ============================================ */
+.typing-cursor::after {
+  content: '|';
+  animation: blink-cursor 1s step-end infinite;
+  color: var(--accent);
+  font-weight: 300;
+  margin-left: 1px;
+}
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ============================================
+   SECTION FADE-IN ANIMATION
+   ============================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.section-visible {
+  animation: fadeInUp 0.45s ease both;
+}
+
+/* ============================================
    ACCESSIBILITY
    ============================================ */
 a:focus-visible,
-button:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
 
 /* ============================================
    MOBILE  ≤ 768px
    ============================================ */
 @media (max-width: 768px) {
   html, body { overflow: auto; height: auto; }
+
+  /* hide social ghost links in topbar on mobile */
+  .topbar-btn--ghost { display: none; }
 
   body {
     font-size: 14px;

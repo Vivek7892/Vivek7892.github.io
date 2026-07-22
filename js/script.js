@@ -163,25 +163,40 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLight
 const topbarBtn = document.getElementById('topbarContactBtn');
 if (topbarBtn) topbarBtn.addEventListener('click', openOverlay);
 
-// Contact form overlay — show after user scrolls slightly (120px) in the content panel
+// Contact form overlay
 const overlay  = document.getElementById('contactOverlay');
 const closeBtn = document.getElementById('contactClose');
+sessionStorage.removeItem('overlayShown');
 
 function openOverlay()  { overlay && overlay.classList.add('visible'); }
 function closeOverlay() { overlay && overlay.classList.remove('visible'); }
 
-function handleScrollTrigger() {
+(function () {
   if (sessionStorage.getItem('overlayShown')) return;
-  if (contentPanel && contentPanel.scrollTop >= 120) {
-    openOverlay();
-    sessionStorage.setItem('overlayShown', '1');
-    contentPanel.removeEventListener('scroll', handleScrollTrigger);
-  }
-}
 
-if (contentPanel && !sessionStorage.getItem('overlayShown')) {
-  contentPanel.addEventListener('scroll', handleScrollTrigger);
-}
+  function getScrollPct() {
+    var isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (isMobile) {
+      var total = document.body.scrollHeight - window.innerHeight;
+      return total > 0 ? (window.scrollY / total) * 100 : 0;
+    }
+    if (!contentPanel) return 0;
+    var total = contentPanel.scrollHeight - contentPanel.clientHeight;
+    return total > 0 ? (contentPanel.scrollTop / total) * 100 : 0;
+  }
+
+  function check() {
+    if (getScrollPct() >= 25) {
+      openOverlay();
+      sessionStorage.setItem('overlayShown', '1');
+      window.removeEventListener('scroll', check);
+      if (contentPanel) contentPanel.removeEventListener('scroll', check);
+    }
+  }
+
+  window.addEventListener('scroll', check, { passive: true });
+  if (contentPanel) contentPanel.addEventListener('scroll', check, { passive: true });
+})();
 
 if (closeBtn) closeBtn.addEventListener('click', closeOverlay);
 
@@ -243,3 +258,70 @@ function initResizer(resizerId, colLeftId, colRightId, isLeft) {
 
 initResizer('resizerLeft',  'colSidebar', 'colContent', true);
 initResizer('resizerRight', 'colContent', 'colBlog',    false);
+
+// ============================================
+// Scroll progress bar
+// ============================================
+const scrollProgress = document.getElementById('scrollProgress');
+if (scrollProgress && contentPanel) {
+  contentPanel.addEventListener('scroll', () => {
+    const { scrollTop, scrollHeight, clientHeight } = contentPanel;
+    const pct = scrollHeight <= clientHeight ? 0 : (scrollTop / (scrollHeight - clientHeight)) * 100;
+    scrollProgress.style.width = pct + '%';
+  }, { passive: true });
+}
+
+// ============================================
+// Typing animation for hero role
+// ============================================
+(function () {
+  const el = document.getElementById('heroRole');
+  if (!el) return;
+  const roles = [
+    'Full Stack Developer',
+    'Mobile App Developer',
+    'Flutter Developer',
+    'AI / ML Engineer',
+  ];
+  let ri = 0, ci = 0, deleting = false;
+  el.classList.add('typing-cursor');
+
+  function tick() {
+    const current = roles[ri];
+    if (!deleting) {
+      el.textContent = current.slice(0, ci + 1);
+      ci++;
+      if (ci === current.length) {
+        deleting = true;
+        setTimeout(tick, 1800);
+        return;
+      }
+    } else {
+      el.textContent = current.slice(0, ci - 1);
+      ci--;
+      if (ci === 0) {
+        deleting = false;
+        ri = (ri + 1) % roles.length;
+      }
+    }
+    setTimeout(tick, deleting ? 55 : 90);
+  }
+  setTimeout(tick, 800);
+})();
+
+// ============================================
+// Section fade-in on scroll (IntersectionObserver)
+// ============================================
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  const targets = document.querySelectorAll('.content section, .content article, .content .featured-project');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('section-visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  targets.forEach(t => obs.observe(t));
+})();

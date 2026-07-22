@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-<loc>https://www.vivekv.me/</loc>
-<lastmod>2026-06-01T19:09:44+00:00</lastmod>
-<priority>1.00</priority>
-</url>
-<url>
-<loc>https://www.vivekv.me/resume/VIVEK%20V.pdf</loc>
-<lastmod>2026-06-01T19:09:45+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>https://www.vivekv.me/project.html</loc>
-<lastmod>2026-06-07T14:13:53+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>https://www.vivekv.me/blog.html</loc>
-<lastmod>2026-06-07T14:13:54+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>https://www.vivekv.me/index.html</loc>
-<lastmod>2026-06-07T14:13:54+00:00</lastmod>
-<priority>0.64</priority>
-</url>
+    <loc>https://vivekv.me/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://vivekv.me/projects</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vivekv.me/blog</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
